@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sun Tzu &mdash; Pablosky &middot; Client Area</title>
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #f3f3f3;
+    --white: #ffffff;
+    --blue: #7998ae;
+    --lblue: #bbe7f4;
+    --red: #fe3f3c;
+    --green: #2d9b6e;
+    --amber: #e07b00;
+    --text: #1a1a1a;
+    --muted: #6b7a8a;
+    --para: #444d56;
+    --purple: #8b5cf6;
+    --border: rgba(121,152,174,0.2);
+    --borderB: rgba(121,152,174,0.4);
+    --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  html { font-size: 15px; }
+  body {
+    font-family: 'HostGrotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* ── App Layout ────────────────────────────────── */
+  #app { display: flex; flex-direction: row; min-height: 100vh; }
+
+  /* ── Sidebar ──────────────────────────────────── */
+  .sidebar {
+    width: 240px; min-height: 100vh; height: 100vh;
+    position: sticky; top: 0; flex-shrink: 0;
+    background: var(--white);
+    border-right: 1px solid var(--border);
+    display: flex; flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .sidebar-logo {
+    padding: 26px 24px 22px;
+    display: flex; align-items: center; gap: 12px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .sidebar-logo svg { width: 28px; height: 28px; flex-shrink: 0; }
+  .sidebar-logo .nav-sep {
+    width: 1px; height: 20px; flex-shrink: 0;
+    background: var(--borderB);
+  }
+  .sidebar-logo img { height: 15px; }
+
+  .sidebar-nav {
+    flex: 1;
+    padding: 16px 0;
+  }
+
+  .sb-section { margin-bottom: 2px; }
+
+  .sb-btn {
+    display: flex; align-items: center; justify-content: space-between;
+    width: 100%; padding: 10px 20px;
+    background: transparent; border: none;
+    border-left: 3px solid transparent;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 1.8px; text-transform: uppercase;
+    color: var(--muted); font-family: inherit;
+    cursor: pointer; text-align: left;
+    transition: color var(--transition), background var(--transition), border-color var(--transition);
+  }
+  .sb-btn:hover { color: var(--text); background: rgba(121,152,174,0.06); }
+  .sb-btn.active {
+    color: var(--red);
+    background: rgba(254,63,60,0.05);
+    border-left-color: var(--red);
+  }
+
+  .sb-arrow {
+    width: 12px; height: 12px;
+    transition: transform 0.2s ease; opacity: 0.6;
+  }
+  .sb-section.open .sb-arrow { transform: rotate(90deg); }
+
+  .sb-subnav {
+    display: none;
+    padding: 2px 0 6px;
+    background: rgba(243,243,243,0.5);
+  }
+  .sb-section.open .sb-subnav { display: block; }
+
+  .sb-sub-btn {
+    display: block; width: 100%;
+    padding: 8px 20px 8px 36px;
+    background: transparent; border: none;
+    border-left: 3px solid transparent;
+    font-size: 12px; font-weight: 500;
+    color: var(--muted); font-family: inherit;
+    cursor: pointer; text-align: left;
+    transition: color var(--transition), background var(--transition), border-color var(--transition);
+  }
+  .sb-sub-btn:hover { color: var(--text); background: rgba(121,152,174,0.06); }
+  .sb-sub-btn.active {
+    color: var(--red); font-weight: 600;
+    border-left-color: var(--red);
+    background: rgba(254,63,60,0.04);
+  }
+
+  .sidebar-bottom {
+    padding: 18px 20px;
+    border-top: 1px solid var(--border);
+    display: flex; flex-direction: column; gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .user-badge {
+    display: flex; align-items: center; gap: 8px;
+    padding: 6px 12px;
+    background: var(--lblue);
+    border: 1px solid var(--borderB);
+    border-radius: 6px;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 1px; text-transform: uppercase;
+    color: var(--blue);
+  }
+  .user-badge .dot {
+    width: 6px; height: 6px;
+    background: var(--green); border-radius: 50%;
+  }
+
+  .logout-btn {
+    padding: 8px 14px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--muted);
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 1px; text-transform: uppercase;
+    font-family: inherit; cursor: pointer; width: 100%;
+    transition: all var(--transition);
+  }
+  .logout-btn:hover { border-color: var(--red); color: var(--red); }
+
+  /* ── Main Content ──────────────────────────────── */
+  .main-content {
+    flex: 1; display: flex; flex-direction: column;
+    min-width: 0; overflow: hidden;
+  }
+
+  /* ── Section Content ──────────────────────────── */
+  .section-content {
+    flex: 1; display: none; padding: 0;
+  }
+  .section-content.active { display: block; }
+
+  .section-content iframe {
+    width: 100%; height: 100vh;
+    border: none; background: var(--bg);
+  }
+
+  /* ── Strategy Section ────────────────────────────── */
+  .strat-wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 64px 48px 80px;
+  }
+  .eyebrow {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: var(--red); margin-bottom: 14px;
+  }
+  .sec-title {
+    font-size: clamp(28px,3vw,42px);
+    font-weight: 800; letter-spacing: -1px;
+    line-height: 1.1; margin-bottom: 12px;
+    color: var(--blue);
+  }
+  .sec-desc {
+    font-size: 14px; color: var(--muted);
+    max-width: 680px; margin-bottom: 48px; line-height: 1.85;
+  }
+
+  /* KR Block */
+  .kr-block { margin-bottom: 56px; }
+  .kr-header {
+    display: flex; align-items: flex-start; gap: 16px;
+    margin-bottom: 24px;
+  }
+  .kr-num {
+    flex-shrink: 0;
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 800; color: #fff;
+  }
+  .kr-num.red { background: var(--red); }
+  .kr-num.amber { background: var(--amber); }
+  .kr-num.green { background: var(--green); }
+  .kr-num.blue { background: var(--blue); }
+  .kr-title {
+    font-size: 18px; font-weight: 700;
+    color: var(--text); line-height: 1.3;
+  }
+  .kr-lever {
+    font-size: 11px; color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* Initiative Table */
+  .init-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .init-table thead th {
+    text-align: left; padding: 12px 16px;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 2px solid var(--borderB);
+    background: var(--bg);
+  }
+  .init-table thead th:not(:first-child) { text-align: center; width: 80px; }
+  .init-table thead th:last-child { width: 90px; }
+
+  .init-row { cursor: pointer; transition: background 0.15s ease; }
+  .init-row:hover { background: rgba(187,231,244,0.18); }
+  .init-row td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px; font-weight: 500;
+    vertical-align: middle;
+  }
+  .init-row td:not(:first-child) { text-align: center; }
+  .init-name {
+    display: flex; align-items: center; gap: 8px;
+  }
+  .init-arrow {
+    flex-shrink: 0; width: 16px; height: 16px;
+    transition: transform 0.2s ease;
+    color: var(--muted);
+  }
+  .init-row.open .init-arrow { transform: rotate(90deg); }
+
+  .ice-val {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 36px; padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 11px; font-weight: 700;
+  }
+  .ice-green { background: rgba(45,155,110,0.1); color: var(--green); }
+  .ice-amber { background: rgba(224,123,0,0.1); color: var(--amber); }
+  .ice-red { background: rgba(254,63,60,0.1); color: var(--red); }
+
+  .ice-score {
+    font-size: 13px; font-weight: 800;
+    padding: 4px 10px; border-radius: 8px;
+  }
+
+  /* Initiative Detail (toggle) */
+  .init-detail {
+    display: none;
+    background: rgba(187,231,244,0.12);
+    border-bottom: 1px solid var(--border);
+  }
+  .init-detail.open { display: table-row; }
+  .init-detail-inner {
+    padding: 24px 28px 28px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .init-detail-block {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .init-detail-block.full { grid-column: 1 / -1; }
+  .idb-label {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--red); margin-bottom: 8px;
+  }
+  .idb-text {
+    font-size: 13px; color: var(--para);
+    line-height: 1.75;
+  }
+  .idb-text strong { color: var(--text); }
+  .kpi-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 12px;
+    background: var(--lblue);
+    border: 1px solid var(--borderB);
+    border-radius: 6px;
+    font-size: 11px; font-weight: 600;
+    color: var(--blue); margin: 4px 4px 0 0;
+  }
+
+  /* ── Unified Footer ────────────────────────────── */
+  .app-footer {
+    background: var(--blue);
+    padding: 40px 48px 32px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+  }
+  .app-footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .app-footer-logos {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .app-footer-logos .fsep {
+    width: 1px; height: 24px;
+    background: rgba(255,255,255,0.2);
+  }
+  .app-footer-meta {
+    text-align: right;
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.75;
+  }
+  .app-footer-bottom {
+    max-width: 1200px;
+    margin: 20px auto 0;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.7;
+  }
+
+  /* ── Responsive ────────────────────────────────── */
+  @media (max-width: 768px) {
+    .login-left { display: none; }
+    .login-right { padding: 40px 28px; }
+    .sidebar { width: 200px; }
+    .app-footer-inner { flex-direction: column; text-align: center; }
+    .app-footer-meta { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ── App ────────────────────────────────────── -->
+  <div id="app">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 24.166 34.02 L 18.662 34.02 L 18.662 33.451 C 18.833 33.345 19.009 33.232 19.194 33.109 C 19.969 32.591 20.692 32.025 21.36 31.414 L 36.348 31.414 C 36.961 30.533 37.505 29.599 37.971 28.622 C 37.7 28.295 37.443 27.958 37.202 27.61 C 36.09 26.003 35.357 24.251 35.026 22.403 C 34.896 21.672 34.83 20.922 34.83 20.174 L 34.83 19.736 L 37.858 19.736 L 37.858 20.174 C 37.858 21.97 38.355 23.671 39.238 25.185 C 39.68 23.532 39.917 21.794 39.917 20.001 C 39.917 19.405 39.889 18.817 39.838 18.235 L 39.819 18.236 C 39.747 18.239 39.676 18.243 39.607 18.244 C 39.51 18.247 39.415 18.249 39.321 18.249 C 38.514 18.249 37.717 18.159 36.941 17.984 C 35.729 17.71 34.569 17.226 33.511 16.548 C 31.944 15.543 30.664 14.157 29.789 12.522 C 28.914 14.157 27.634 15.543 26.066 16.548 C 25.009 17.226 23.849 17.71 22.636 17.984 C 21.861 18.159 21.063 18.249 20.256 18.249 C 20.163 18.249 20.068 18.248 19.97 18.244 C 19.901 18.243 19.831 18.239 19.759 18.236 L 19.55 18.227 L 19.55 15.654 L 19.781 15.668 C 19.944 15.677 20.104 15.682 20.256 15.682 C 24.805 15.682 28.506 11.974 28.506 7.415 L 28.506 6.723 L 31.072 6.723 L 31.072 7.415 C 31.072 11.973 34.772 15.682 39.322 15.682 C 39.363 15.682 39.406 15.681 39.448 15.681 C 37.476 6.711 29.5 0 19.958 0 C 8.935 0 0 8.954 0 20 C 0 28.923 5.832 36.48 13.884 39.056 L 13.884 33.74 C 12.033 34.341 10.084 34.645 8.079 34.645 L 7.642 34.645 L 7.642 31.617 L 8.079 31.617 C 15.6 31.617 21.718 26.483 21.718 20.174 L 21.718 19.736 L 24.746 19.736 L 24.746 20.174 C 24.746 20.922 24.68 21.672 24.55 22.403 C 24.219 24.252 23.487 26.003 22.374 27.61 C 21.29 29.176 19.894 30.534 18.224 31.65 C 17.965 31.822 17.726 31.973 17.493 32.11 C 17.3 32.226 17.105 32.338 16.911 32.443 L 16.911 39.769 C 17.904 39.921 18.921 40.001 19.957 40.001 C 21.401 40.001 22.808 39.846 24.165 39.554 L 24.165 34.021 Z M 26.496 20.173 L 26.496 19.954 L 33.081 19.954 L 33.081 20.173 C 33.081 20.974 33.147 21.775 33.279 22.56 L 26.299 22.56 C 26.43 21.774 26.496 20.973 26.496 20.173 Z M 25.407 25.684 L 34.17 25.684 C 34.539 26.584 35 27.455 35.549 28.29 L 24.027 28.29 C 24.577 27.455 25.037 26.584 25.407 25.684 Z" fill="rgb(250, 36, 46)"/>
+          <path d="M 26.764 34.02 L 32.809 34.02 L 32.809 35.3 C 31.032 36.8 28.991 37.996 26.764 38.806 Z" fill="rgb(250, 36, 46)"/>
+        </svg>
+        <div class="nav-sep"></div>
+        <img src="public/PABLOSKY.png" alt="Pablosky" />
+      </div>
+
+      <nav class="sidebar-nav">
+        <!-- Inmersión -->
+        <div class="sb-section open" id="sb-inmersion">
+          <button class="sb-btn active" data-section="inmersion">
+            Inmersi&oacute;n
+            <svg class="sb-arrow" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"/></svg>
+          </button>
+          <div class="sb-subnav">
+            <button class="sb-sub-btn active" data-sub="inmersion-ue">Unit Economics Report</button>
+            <button class="sb-sub-btn" data-sub="inmersion-hist">Hist&oacute;rico de Ventas</button>
+            <button class="sb-sub-btn" data-sub="inmersion-citas">Citas &amp; Modelo ROPO</button>
+          </div>
+        </div>
+        <!-- Focus -->
+        <div class="sb-section" id="sb-focus">
+          <button class="sb-btn" data-section="focus">
+            Focus
+            <svg class="sb-arrow" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"/></svg>
+          </button>
+          <div class="sb-subnav">
+            <button class="sb-sub-btn" data-sub="okr">OKR</button>
+            <button class="sb-sub-btn active" data-sub="tracking-plan">Tracking Plan</button>
+          </div>
+        </div>
+        <!-- Strategy -->
+        <div class="sb-section" id="sb-strategy">
+          <button class="sb-btn" data-section="strategy">
+            Strategy
+            <svg class="sb-arrow" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"/></svg>
+          </button>
+          <div class="sb-subnav">
+            <button class="sb-sub-btn" data-sub="strategy-ropo">Modelo ROPO</button>
+          </div>
+        </div>
+        <div class="sb-section" id="leadership">
+          <button class="sb-btn" data-section="leadership">
+            Leadership Platform
+          </button>
+        </div>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="user-badge">
+          <span class="dot"></span>
+          <span>Pablosky</span>
+        </div>
+        <button class="logout-btn" id="logout-btn">Salir</button>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <div class="main-content">
+
+    <!-- Inmersión: Unit Economics -->
+    <div class="section-content active" id="sec-inmersion-ue">
+      <iframe src="UnitEconomics_Pablosky_2025.html" loading="lazy"></iframe>
+    </div>
+
+    <!-- Inmersión: Histórico de Ventas -->
+    <!-- <div class="section-content" id="sec-inmersion-hist">
+      <iframe src="Historico_MillerMarc.html" loading="lazy"></iframe>
+    </div>-->
+
+    <!-- Inmersión: Citas & Modelo ROPO -->
+    <!-- <div class="section-content" id="sec-inmersion-citas">
+      <iframe src="Citas_MillerMarc.html" loading="lazy"></iframe>
+    </div> -->
+
+    <!-- Focus-okr -->
+    <div class="section-content" id="sec-okr">
+      <iframe src="OKR_Pablosky_2025.html" loading="lazy"></iframe>
+    </div>
+    <!-- Focus-Tracking -->
+    <!-- <div class="section-content" id="sec-tracking-plan">
+      <iframe src="Tracking_Plan_MillerMarc.html" loading="lazy"></iframe>
+    </div> -->
+
+    <!-- Strategy: Modelo ROPO -->
+    <!-- <div class="section-content" id="sec-strategy-ropo">
+      <div class="strat-wrap">
+        <div class="eyebrow">Strategy &middot; KR-05</div>
+        <h1 class="sec-title">Modelo ROPO.<br>Backlog GTM.</h1>
+        <p class="sec-desc">Backlog priorizado de iniciativas Go-to-Market para el modelo ROPO (Research Online, Purchase Offline). Scoring ICE: Impacto (I) &times; Confianza (C) &times; Factibilidad (E). Top 3 quick wins destacadas con documentaci&oacute;n detallada.</p>
+        -->
+        <!-- KR-05 Summary -->
+        <!-- <div class="kr-block" style="margin-bottom:32px">
+          <div class="kr-header">
+            <div class="kr-num purple">05</div>
+            <div>
+              <div class="kr-title">Duplicar citas web cualificadas a tienda: de 4.021 a 6.200 en 2026</div>
+              <div class="kr-lever" style="color:var(--purple)">ROPO &middot; Redirigir captaci&oacute;n digital de ecommerce a tr&aacute;fico a tienda cualificado &middot; +&euro;165K&ndash;&euro;200K</div>
+            </div>
+          </div>
+        </div>-->
+
+        <!-- Top 3 Quick Wins -->
+        <!-- <h3 style="font-size:14px;font-weight:700;margin-bottom:16px;color:var(--text)">Top 3 Quick Wins</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:32px">
+          <div class="icard green">
+            <div class="iicon" style="background:rgba(45,155,110,0.1)">1</div>
+            <div>
+              <div class="ititle">CRM-01 &middot; Recordatorios WhatsApp</div>
+              <div class="itext">ICE: 125. La palanca m&aacute;s inmediata: 1.847 citas canceladas + no-shows son revenue directo perdido. Impacto estimado ~68.500&euro;/a&ntilde;o.</div>
+            </div>
+          </div>
+          <div class="icard green">
+            <div class="iicon" style="background:rgba(45,155,110,0.1)">2</div>
+            <div>
+              <div class="ititle">CRM-03 &middot; Recordatorio revisi&oacute;n visual</div>
+              <div class="itext">ICE: 80. Ataca el problema estructural del 80,7% de compradores &uacute;nicos. Impacto estimado ~192.000&euro;/a&ntilde;o si convierte al 10% de la base.</div>
+            </div>
+          </div>
+          <div class="icard green">
+            <div class="iicon" style="background:rgba(45,155,110,0.1)">3</div>
+            <div>
+              <div class="ititle">TC-01 &middot; Landings para reserva en tienda</div>
+              <div class="itext">ICE: 80. Mejora la eficiencia del gasto en medios sin aumentar presupuesto. Impacto estimado ~110.000&euro;/a&ntilde;o con +30% de conversi&oacute;n relativa.</div>
+            </div>
+          </div>
+        </div>
+        -->
+        <!-- ═══ CANALES DE ADQUISICIÓN ═══ -->
+        <!-- <div class="kr-block">
+          <div class="kr-header">
+            <div class="kr-num" style="background:var(--purple)">CA</div>
+            <div>
+              <div class="kr-title">Canales de Adquisici&oacute;n</div>
+              <div class="kr-lever" style="color:var(--purple)">Channel Acquisition &middot; Generaci&oacute;n de tr&aacute;fico cualificado a tienda</div>
+            </div>
+          </div>
+          <table class="init-table">
+            <thead><tr><th>Iniciativa</th><th>I</th><th>C</th><th>E</th><th>ICE</th></tr></thead>
+            <tbody>
+              <tr class="init-row"><td><span class="init-name">CA-02 &middot; Anuncios orientados a examen visual</span></td><td><span class="ice-val ice-amber">4</span></td><td><span class="ice-val ice-amber">4</span></td><td><span class="ice-val ice-amber">4</span></td><td><span class="ice-score ice-amber">64</span></td></tr>
+              <tr class="init-row"><td><span class="init-name">CA-04 &middot; Extensiones de anuncios C2Call en Google Ads</span></td><td><span class="ice-val ice-red">3</span></td><td><span class="ice-val ice-amber">4</span></td><td><span class="ice-val ice-green">5</span></td><td><span class="ice-score ice-amber">60</span></td></tr>
+              <tr class="init-row"><td><span class="init-name">CA-01 &middot; Campa&ntilde;as geolocalizadas en radio de KM de tiendas</span></td><td><span class="ice-val ice-red">3</span></td><td><span class="ice-val ice-red">3</span></td><td><span class="ice-val ice-amber">4</span></td><td><span class="ice-score ice-red">36</span></td></tr>
+              <tr class="init-row"><td><span class="init-name">CA-03 &middot; Anuncios conversacionales para citas WhatsApp</span></td><td><span class="ice-val ice-amber">4</span></td><td><span class="ice-val ice-red">3</span></td><td><span class="ice-val ice-red">3</span></td><td><span class="ice-score ice-red">36</span></td></tr>
+              <tr class="init-row"><td><span class="init-name">CA-05 &middot; Creatividades con Influencers en tiendas</span></td><td><span class="ice-val ice-red">3</span></td><td><span class="ice-val ice-red">2</span></td><td><span class="ice-val ice-red">3</span></td><td><span class="ice-score ice-red">18</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+          -->
+        <!-- ═══ CONVERSIÓN DE TRÁFICO ═══ -->
+        <!-- <div class="kr-block">
+          <div class="kr-header">
+            <div class="kr-num" style="background:var(--purple)">TC</div>
+            <div>
+              <div class="kr-title">Conversi&oacute;n de Tr&aacute;fico</div>
+              <div class="kr-lever" style="color:var(--purple)">Traffic Conversion &middot; De visita web a cita reservada en tienda</div>
+            </div>
+          </div>
+          <table class="init-table">
+            <thead><tr><th>Iniciativa</th><th>I</th><th>C</th><th>E</th><th>ICE</th></tr></thead>
+            <tbody>
+              -->
+              <!-- TC-01 DOCUMENTED -->
+              <!-- <tr class="init-row" data-target="tc01">
+                <td><span class="init-name"><svg class="init-arrow" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"/></svg><strong style="color:var(--green)">TC-01</strong> &middot; Landings optimizadas para reservar cita en tienda</span></td>
+                <td><span class="ice-val ice-green">5</span></td><td><span class="ice-val ice-amber">4</span></td><td><span class="ice-val ice-amber">4</span></td><td><span class="ice-score ice-green">80</span></td>
+              </tr>
+              <tr class="init-detail" id="tc01"><td colspan="5"><div class="init-detail-inner">
+                <div class="init-detail-block"><div class="idb-label">Resumen</div><div class="idb-text">Redise&ntilde;ar las landing pages de campa&ntilde;as de captaci&oacute;n para que est&eacute;n 100% orientadas a un &uacute;nico objetivo: que el visitante reserve una cita en la tienda m&aacute;s cercana. Eliminar distracciones, incorporar geolocalizaci&oacute;n autom&aacute;tica y simplificar el flujo de reserva a 2&ndash;3 clics m&aacute;ximo.</div></div>
+                <div class="init-detail-block"><div class="idb-label">Evidencias</div><div class="idb-text">El 53,9% de las citas en 2025 (4.021) se reservaron desde la web. Las citas atendidas convierten al 67,2% con AOV ~137&euro;. El gasto en marketing se redujo a 141K&euro; (&ndash;31%), lo que exige mayor eficiencia. Miller &amp; Marc opera 14 tiendas en 6 ciudades &mdash; la geolocalizaci&oacute;n es cr&iacute;tica.</div></div>
+                <div class="init-detail-block"><div class="idb-label">Propuesta</div><div class="idb-text"><strong>Fase 1 (sem 1&ndash;3):</strong> Landing template con hero + propuesta de valor, selector de tienda con geolocalizaci&oacute;n, widget Acuity embebido, social proof (rating Google) y mapa. <strong>Fase 2 (sem 3&ndash;4):</strong> Variantes por ciudad (Madrid, Barcelona, Valencia, Bilbao, Sevilla, Zaragoza). <strong>Fase 3 (sem 4&ndash;5):</strong> Redirigir todas las campa&ntilde;as pagadas a las nuevas landings con tracking UTM completo.</div></div>
+                <div class="init-detail-block"><div class="idb-label">Hip&oacute;tesis</div><div class="idb-text">H1: +30% conversi&oacute;n relativa visita&ndash;a&ndash;cita. H2: +50% clic en selector de tienda con geolocalizaci&oacute;n. H3: &ndash;20% en CPA (coste por cita agendada).</div></div>
+                <div class="init-detail-block"><div class="idb-label">Impacto estimado</div><div class="idb-text">+1.200 citas/a&ntilde;o &times; 67% conversi&oacute;n &times; 137&euro; AOV = <strong>~110.000&euro; revenue incremental</strong> sin aumentar gasto en medios. Test A/B 6 sem en Madrid con ~1.000 visitas por variante.</div></div>
+                <div class="init-detail-block"><div class="idb-label">KPIs</div><div class="idb-text"><span class="kpi-pill">CR landing &rarr; cita</span><span class="kpi-pill">CPA cita agendada</span><span class="kpi-pill">Tiempo en landing</span><span class="kpi-pill">% uso geolocalizaci&oacute;n</span></div></div>
+              </div></td></tr>
+
+              <tr class="init-row"><td><span class="init-name">TC-03 &middot; P&aacute;ginas de tiendas optimizadas (c&oacute;mo llegar + horarios + reserva)</span></td><td><span class="ice-val ice-amber">4</span></td><td><span class="ice-val ice-amber">4</span></td><td><span class="ice-val ice-green">5</span></td><td><span class="ice-score ice-green">80</span></td></tr>
+              <tr class="init-row"><td><span class="init-name">TC-04 &middot; Retargeting din&aacute;mico a visitantes web sin reservar</span></td><td><span class="ice-val ice-amber">4</span></td><td><span class="ice-val ice-amber">4</span></td><td><span class="ice-val ice-amber">4</span></td><td><span class="ice-score ice-amber">64</span></td></tr>
+              <tr class="init-row"><td><span class="init-name">TC-02 &middot; Conversi&oacute;n directa con agentes conversacionales WhatsApp</span></td><td><span class="ice-val ice-amber">4</span></td><td><span class="ice-val ice-red">3</span></td><td><span class="ice-val ice-red">3</span></td><td><span class="ice-score ice-red">36</span></td></tr>
+              <tr class="init-row"><td><span class="init-name">TC-05 &middot; Social proof en flujo de reserva cerca de tienda</span></td><td><span class="ice-val ice-red">3</span></td><td><span class="ice-val ice-red">3</span></td><td><span class="ice-val ice-amber">4</span></td><td><span class="ice-score ice-red">36</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+         --> 
+        <!-- ═══ CLIENT LIFECYCLE ═══ -->
+        <!-- <div class="kr-block">
+          <div class="kr-header">
+            <div class="kr-num" style="background:var(--purple)">CRM</div>
+            <div>
+              <div class="kr-title">Client Lifecycle</div>
+              <div class="kr-lever" style="color:var(--purple)">CRM Automation &middot; Retenci&oacute;n, recurrencia y reducci&oacute;n de ca&iacute;das del funnel</div>
+            </div>
+          </div>
+          <table class="init-table">
+            <thead><tr><th>Iniciativa</th><th>I</th><th>C</th><th>E</th><th>ICE</th></tr></thead>
+            <tbody>
+              -->
+              <!-- CRM-01 DOCUMENTED -->
+              <!-- <tr class="init-row" data-target="crm01">
+                <td><span class="init-name"><svg class="init-arrow" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"/></svg><strong style="color:var(--green)">CRM-01</strong> &middot; Recordatorios WhatsApp para evitar no presentados</span></td>
+                <td><span class="ice-val ice-green">5</span></td><td><span class="ice-val ice-green">5</span></td><td><span class="ice-val ice-green">5</span></td><td><span class="ice-score ice-green">125</span></td>
+              </tr>
+              <tr class="init-detail" id="crm01"><td colspan="5"><div class="init-detail-inner">
+                <div class="init-detail-block"><div class="idb-label">Resumen</div><div class="idb-text">Implementar un sistema automatizado de recordatorios por <strong>WhatsApp Business API</strong> en tres momentos clave: 48h antes, ma&ntilde;ana del d&iacute;a, y 1h antes. Reducir la tasa de cancelaci&oacute;n (24,8%) y los no-shows, maximizando ocupaci&oacute;n de agenda y conversi&oacute;n cita&ndash;a&ndash;venta.</div></div>
+                <div class="init-detail-block"><div class="idb-label">Evidencias</div><div class="idb-text">De 7.460 citas en 2025, 1.847 canceladas (24,8%) + 146 no-shows (2,6%). Conversi&oacute;n cita atendida: 67,2%. El 53,9% de citas desde web sin contacto humano previo. Cadenas con recordatorios autom&aacute;ticos reducen no-shows un 30&ndash;50%.</div></div>
+                <div class="init-detail-block"><div class="idb-label">Propuesta</div><div class="idb-text"><strong>Fase 1 (sem 1&ndash;2):</strong> Configurar WhatsApp Business API + Acuity. Plantillas Meta aprobadas. <strong>Fase 2 (sem 3):</strong> Flujo 3 toques: confirmaci&oacute;n 48h + recordatorio ma&ntilde;ana + recordatorio 1h con CTA Google Maps. <strong>Fase 3 (sem 4):</strong> Gesti&oacute;n cancelaciones: ofrecer 2&ndash;3 slots alternativos; sin respuesta &rarr; llamada equipo tienda.</div></div>
+                <div class="init-detail-block"><div class="idb-label">Hip&oacute;tesis</div><div class="idb-text">H1: Cancelaciones del 24,8% al &le;15% en 60 d&iacute;as. H2: &ge;25% de cancelaciones recuperadas como nuevas citas. H3: No-show del 2,6% al &le;1%.</div></div>
+                <div class="init-detail-block"><div class="idb-label">Impacto estimado</div><div class="idb-text">~750 citas recuperadas/a&ntilde;o &times; 67% conversi&oacute;n = ~500 ventas adicionales &times; 137&euro; = <strong>~68.500&euro; revenue incremental</strong>. Piloto A/B en 2 tiendas &times; 8 semanas, ~400 citas/grupo.</div></div>
+                <div class="init-detail-block"><div class="idb-label">KPIs</div><div class="idb-text"><span class="kpi-pill">Tasa cancelaci&oacute;n</span><span class="kpi-pill">Tasa no-show</span><span class="kpi-pill">Reagendamiento post-cancel</span><span class="kpi-pill">Respuesta WhatsApp</span></div></div>
+              </div></td></tr>
+              -->
+              <!-- CRM-03 DOCUMENTED -->
+              <!-- <tr class="init-row" data-target="crm03">
+                <td><span class="init-name"><svg class="init-arrow" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"/></svg><strong style="color:var(--green)">CRM-03</strong> &middot; Recordatorio anual de revisi&oacute;n visual (ciclo 12 meses)</span></td>
+                <td><span class="ice-val ice-green">5</span></td><td><span class="ice-val ice-amber">4</span></td><td><span class="ice-val ice-amber">4</span></td><td><span class="ice-score ice-green">80</span></td>
+              </tr>
+              <tr class="init-detail" id="crm03"><td colspan="5"><div class="init-detail-inner">
+                <div class="init-detail-block"><div class="idb-label">Resumen</div><div class="idb-text">Flujo CRM automatizado que contacta a cada cliente <strong>11 meses despu&eacute;s de su &uacute;ltima compra</strong> para recordar revisi&oacute;n visual. Activar recurrencia en la base de compradores &uacute;nicos (80,7%), aprovechando el ciclo de renovaci&oacute;n de prescripci&oacute;n de 12 meses.</div></div>
+                <div class="init-detail-block"><div class="idb-label">Evidencias</div><div class="idb-text">80,7% compradores &uacute;nicos (14.162 de 17.543). De 76.699 clientes hist&oacute;ricos, solo 32,7% repiti&oacute;. Optical + Progressive = 63% ventas con ciclo renovaci&oacute;n 12&ndash;24 meses. Revenue estancado (+0,2% en 2025).</div></div>
+                <div class="init-detail-block"><div class="idb-label">Propuesta</div><div class="idb-text"><strong>Fase 1 (sem 1&ndash;2):</strong> Segmentar por categor&iacute;a de primera compra. <strong>Fase 2 (sem 2&ndash;3):</strong> Secuencia 3 toques: email/WhatsApp a 11 meses + segundo toque a 12 meses con incentivo (limpieza gratuita) + tercer toque a 13 meses. <strong>Fase 3 (sem 3&ndash;4):</strong> Personalizar por categor&iacute;a (graduadas: salud visual; sol: nueva colecci&oacute;n; lentillas: reposici&oacute;n).</div></div>
+                <div class="init-detail-block"><div class="idb-label">Hip&oacute;tesis</div><div class="idb-text">H1: Apertura/lectura &gt;40%, clic&ndash;a&ndash;cita &gt;8%. H2: &ge;10% de compradores &uacute;nicos contactados realizan segunda compra en 90 d&iacute;as. H3: Ticket segunda compra &ge; primera sin descuento.</div></div>
+                <div class="init-detail-block"><div class="idb-label">Impacto estimado</div><div class="idb-text">10% de ~14.000 compradores &uacute;nicos = ~1.400 clientes &times; 137&euro; AOV = <strong>~192.000&euro; revenue incremental</strong> (+6% sobre 3,17M&euro;). Piloto 2.000 clientes, 50/50 test/control, 12 semanas.</div></div>
+                <div class="init-detail-block"><div class="idb-label">KPIs</div><div class="idb-text"><span class="kpi-pill">Recompra 90d test vs control</span><span class="kpi-pill">Citas desde flujo CRM</span><span class="kpi-pill">Tasa apertura</span><span class="kpi-pill">Ticket 2a compra</span></div></div>
+              </div></td></tr>
+
+              <tr class="init-row"><td><span class="init-name">CRM-02 &middot; Flujos de reactivaci&oacute;n de citas canceladas no reagendadas</span></td><td><span class="ice-val ice-amber">4</span></td><td><span class="ice-val ice-amber">4</span></td><td><span class="ice-val ice-amber">4</span></td><td><span class="ice-score ice-amber">64</span></td></tr>
+              <tr class="init-row"><td><span class="init-name">CRM-05 &middot; Solicitud automatizada de rese&ntilde;a Google localizada post-compra</span></td><td><span class="ice-val ice-red">3</span></td><td><span class="ice-val ice-amber">4</span></td><td><span class="ice-val ice-green">5</span></td><td><span class="ice-score ice-amber">60</span></td></tr>
+              <tr class="init-row"><td><span class="init-name">CRM-04 &middot; Flujo post-venta cross-sell personalizado (30&ndash;60 d&iacute;as)</span></td><td><span class="ice-val ice-amber">4</span></td><td><span class="ice-val ice-red">3</span></td><td><span class="ice-val ice-red">3</span></td><td><span class="ice-score ice-red">36</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+    -->
+    <!-- <div class="section-content" id="sec-leadership">
+      <iframe src="miller-marc-leadership.html" loading="lazy"></iframe>
+    </div>
+    -->
+    <!-- Unified Footer -->
+    <footer class="app-footer" id="app-footer">
+      <div class="app-footer-inner">
+        <div class="app-footer-logos">
+          <svg viewBox="0 0 504 245" xmlns="http://www.w3.org/2000/svg" style="height:24px;width:auto">
+            <path d="M447.4,232.2c5.2,2.7,11.4,4,18.5,4s13.1-1.4,18.1-4c5-2.7,8.9-6.6,11.6-11.7,2.6-5.1,4-11.2,4-18.1v-45h-17.6v44.9c0,5.3-1.5,9.5-4.4,12.4-2.9,2.9-7,4.4-12.2,4.4s-9.3-1.5-12.2-4.4c-2.9-2.9-4.3-7.1-4.3-12.4v-44.9h-17.6v45c0,7,1.4,13.1,4.1,18.1,2.8,5.1,6.8,9,11.9,11.7h0Z" fill="#fff"/>
+            <path d="M448.9,145.7v-48.6l37.2,48.6h17.8v-77.6h-17.6v48.9l-37.1-48.9h-17.8v77.6h17.5Z" fill="#fff"/>
+            <path d="M353.9,223.1v11.9h67.5v-15.9h-41.7l42.9-52.1v-9.6h-146.7v15.9h28.4v61.7h17.6v-61.7h74.2l-42.2,49.8Z" fill="#fff"/>
+            <path d="M325.4,69.6c-4.9-2.1-10.5-3.1-16.8-3.1s-11.9,1-16.5,2.9c-4.7,2-8.3,4.8-10.8,8.6-2.5,3.7-3.8,8.1-3.8,13.1s1.4,10.6,4.3,13.8c2.8,3.2,6.3,5.4,10.2,6.5,3.9,1.1,8.9,2,15,2.7,4,.5,7.1,1,9.2,1.5,2.1.4,3.8,1.2,5.3,2.3,1.4,1.1,2,2.5,2,4.4s-1.2,4.7-3.6,6.3c-2.4,1.6-5.9,2.4-10.4,2.4s-8.2-1.1-10.7-3.2c-2.5-2.2-3.8-5.1-4-8.9v-.4h-19.7v.4c0,5.8,1.4,10.8,4.3,15.1,2.9,4.3,6.9,7.6,12,9.8,5.1,2.2,11,3.4,17.7,3.4s12.4-1.1,17.3-3.1c4.9-2.1,8.7-5.1,11.4-8.8,2.6-3.8,4-8.2,4-13.2s-1.4-10.6-4.2-13.8c-2.8-3.2-6.2-5.3-10.1-6.4-3.9-1.1-8.9-2-14.9-2.7-4-.4-7.2-.9-9.4-1.4-2.2-.5-4-1.3-5.4-2.4-1.4-1.1-2.1-2.6-2.1-4.7s1.1-4.4,3.2-5.8c2.2-1.4,5.4-2.1,9.4-2.1s7.2.9,9.4,2.6c2.3,1.7,3.5,4.1,3.8,7.2v.3h19.5v-.4c0-5.3-1.4-10-4.1-13.9-2.7-3.9-6.6-6.9-11.5-9h0Z" fill="#fff"/>
+            <path d="M385.5,129.8c-5.2,0-9.3-1.5-12.2-4.4-2.9-2.9-4.3-7.1-4.3-12.4v-44.9h-17.6v45c0,7,1.4,13.1,4.1,18.1,2.8,5.1,6.8,9,11.9,11.7,5.2,2.7,11.4,4,18.5,4s13.1-1.4,18.1-4c5-2.7,9-6.6,11.6-11.7,2.6-5.1,4-11.2,4-18.1v-45h-17.6v44.9c0,5.3-1.5,9.5-4.4,12.4-2.9,2.9-7,4.4-12.2,4.4h0Z" fill="#fff"/>
+            <path d="M148.6,208.4h-33.8v-3.5c1.1-.6,2.1-1.3,3.3-2.1,4.8-3.2,9.2-6.6,13.3-10.4h92.2c3.8-5.4,7.1-11.1,10-17.1-1.7-2-3.2-4.1-4.7-6.2-6.8-9.8-11.3-20.6-13.4-31.9-.8-4.5-1.2-9.1-1.2-13.7v-2.7h18.6v2.7c0,11,3.1,21.4,8.5,30.7,2.7-10.1,4.2-20.8,4.2-31.8s-.2-7.2-.5-10.8h-.1c-.4,0-.9,0-1.3,0-.6,0-1.2,0-1.8,0-5,0-9.9-.5-14.6-1.6-7.5-1.7-14.6-4.6-21.1-8.8-9.6-6.2-17.5-14.6-22.9-24.7-5.4,10-13.3,18.5-22.9,24.7-6.5,4.2-13.6,7.1-21.1,8.8-4.8,1.1-9.7,1.6-14.6,1.6s-1.2,0-1.8,0c-.4,0-.9,0-1.3,0h-1.3v-15.8h1.4c1,.1,2,.2,2.9.2,28,0,50.7-22.7,50.7-50.6v-4.2h15.8v4.2c0,27.9,22.8,50.6,50.7,50.6s.5,0,.8,0C230.4,41.1,181.4,0,122.7,0S0,54.8,0,122.5s35.9,100.9,85.4,116.7v-32.6c-11.4,3.7-23.4,5.5-35.7,5.5h-2.7v-18.5h2.7c46.2,0,83.9-31.4,83.9-70.1v-2.7h18.6v2.7c0,4.6-.4,9.2-1.2,13.7-2,11.3-6.5,22.1-13.4,31.9-6.7,9.6-15.2,17.9-25.5,24.7-1.6,1.1-3.1,2-4.5,2.8-1.2.7-2.4,1.4-3.6,2v44.9c6.1.9,12.4,1.4,18.7,1.4s17.5-.9,25.9-2.7v-33.9h0ZM162.9,123.6v-1.3h40.5v1.3c0,4.9.4,9.8,1.2,14.6h-42.9c.8-4.8,1.2-9.7,1.2-14.6ZM156.2,157.3h53.9c2.3,5.5,5.1,10.8,8.5,16h-70.8c3.4-5.1,6.2-10.4,8.5-16Z" fill="#fff"/>
+            <path d="M164.6,237.7c13.7-5,26.2-12.3,37.2-21.5v-7.8h-37.2v29.3Z" fill="#fff"/>
+          </svg>
+          <div class="fsep"></div>
+          <img src="public/PABLOSKY.png" alt="Pablosky" style="height:16px;filter:brightness(0) invert(1);opacity:0.7">
+        </div>
+        <div class="app-footer-meta">
+          Portal de Estrategia de Growth &middot; Pablosky<br>
+          Plataforma privada &middot; Powered by Suntzu
+        </div>
+      </div>
+      <div class="app-footer-bottom">
+        Informe preparado por Suntzu para Pablosky &middot; Datos: FY2022&ndash;2025 &middot; Generado en marzo 2026<br>
+        <span style="opacity:0.7">Este portal es de uso interno y confidencial. El contenido ha sido generado mediante un sistema de agentes de IA en colaboraci&oacute;n con consultores senior.</span>
+      </div>
+    </footer>
+
+    </div><!-- /.main-content -->
+  </div><!-- /#app -->
+
+  <script>
+    const sections = document.querySelectorAll('.section-content');
+
+    document.getElementById('logout-btn').addEventListener('click', () => {
+      window.location.href = '/api/logout';
+    });
+
+    function showSection(id) {
+      sections.forEach(sec => sec.classList.toggle('active', sec.id === id));
+    }
+
+    /* Sidebar top-level buttons */
+    document.querySelectorAll('.sb-btn[data-section]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const sectionId = btn.dataset.section;
+        const sbSection = btn.closest('.sb-section');
+
+        document.querySelectorAll('.sb-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        if (sbSection.querySelector('.sb-subnav')) {
+          sbSection.classList.toggle('open');
+          document.querySelectorAll('.sb-section').forEach(s => { if (s !== sbSection) s.classList.remove('open'); });
+        } else {
+          document.querySelectorAll('.sb-section').forEach(s => s.classList.remove('open'));
+          document.querySelectorAll('.sb-sub-btn').forEach(b => b.classList.remove('active'));
+          showSection('sec-' + sectionId);
+        }
+      });
+    });
+
+    /* Sidebar sub-items */
+    document.querySelectorAll('.sb-sub-btn[data-sub]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.sb-sub-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        showSection('sec-' + btn.dataset.sub);
+      });
+    });
+
+    /* Toggle initiative details */
+    document.querySelectorAll('.init-row').forEach(row => {
+      row.addEventListener('click', () => {
+        const target = document.getElementById(row.dataset.target);
+        const isOpen = row.classList.contains('open');
+        const table = row.closest('tbody');
+        table.querySelectorAll('.init-row.open').forEach(r => {
+          r.classList.remove('open');
+          document.getElementById(r.dataset.target).classList.remove('open');
+        });
+        if (!isOpen) {
+          row.classList.add('open');
+          target.classList.add('open');
+        }
+      });
+    });
+
+    /* Inside iframes: hide all logo/brand elements, keep section nav tabs */
+    document.querySelectorAll('.section-content iframe').forEach(iframe => {
+      iframe.addEventListener('load', () => {
+        try {
+          const doc = iframe.contentDocument || iframe.contentWindow.document;
+          // Hide logo containers (UnitEconomics + Historico)
+          ['.nav-l', '.nav-logo', '.nav-sep'].forEach(sel => {
+            const el = doc.querySelector(sel);
+            if (el) el.style.display = 'none';
+          });
+          // Hide logos in OKR nav but keep nav-links visible
+          ['.nav-logos', '.nav-div', '.nav-title'].forEach(sel => {
+            const el = doc.querySelector(sel);
+            if (el) el.style.display = 'none';
+          });
+          // Hide cover logos on cover pages
+          const covLogos = doc.querySelector('.cov-logos');
+          if (covLogos) covLogos.style.display = 'none';
+          // Hide OKR cover-logos
+          const coverLogos = doc.querySelector('.cover-logos');
+          if (coverLogos) coverLogos.style.display = 'none';
+          // Hide footers inside iframes (unified footer in shell)
+          const footer = doc.querySelector('.footer');
+          if (footer) footer.style.display = 'none';
+          // If nav has no visible children left, hide it entirely
+          const nav = doc.querySelector('.nav');
+          if (nav) {
+            const visibleChildren = Array.from(nav.children).filter(c => c.style.display !== 'none' && c.offsetWidth > 0);
+            if (visibleChildren.length === 0) nav.style.display = 'none';
+          }
+        } catch(e) {}
+      });
+    });
+  </script>
+</body>
+</html>

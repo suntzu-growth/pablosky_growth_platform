@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit Economics Report — Pablosky 2024-2025</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#f3f3f3; --white:#ffffff;
+  --blue:#7998ae; --lblue:#bbe7f4;
+  --psky:#E8611A; --psky-light:#FEF0E8; --psky-mid:#F5A058;
+  --green:#2d9b6e; --amber:#e07b00; --red:#fe3f3c;
+  --text:#1a1a1a; --muted:#6b7a8a;
+  --border:rgba(121,152,174,0.2); --borderB:rgba(121,152,174,0.4);
+}
+body{font-family:'Host Grotesk',sans-serif;background:var(--bg);color:var(--text);font-size:14px;}
+
+/* ── NAVIGATION ─────────────────── */
+nav{background:var(--white);border-bottom:1px solid var(--border);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:100;}
+.nav-logos{display:flex;align-items:center;gap:16px;}
+.logo-suntzu{font-weight:800;font-size:16px;letter-spacing:-0.5px;color:var(--text);}
+.logo-suntzu span{color:var(--psky);}
+.logo-divider{width:1px;height:24px;background:var(--borderB);}
+.logo-pablosky{font-weight:800;font-size:18px;letter-spacing:1px;color:var(--psky);}
+.logo-pablosky span{color:var(--text);}
+.nav-meta{font-size:12px;color:var(--muted);}
+
+/* ── COVER ──────────────────────── */
+.cover{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;}
+.cover-left{background:var(--bg);padding:80px 60px;display:flex;flex-direction:column;justify-content:center;}
+.cover-right{background:linear-gradient(135deg,var(--psky-light) 0%,#fde8d4 100%);padding:80px 60px;display:flex;flex-direction:column;justify-content:center;}
+.cover-eyebrow{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:20px;}
+.cover-title{font-size:64px;font-weight:800;line-height:1.0;color:var(--blue);margin-bottom:32px;}
+.cover-title span{color:var(--psky);}
+.cover-desc{font-size:16px;line-height:1.6;color:var(--muted);max-width:420px;margin-bottom:40px;}
+.cover-logos-box{display:flex;align-items:center;gap:20px;padding:20px 0;border-top:1px solid var(--borderB);}
+.c-logo-s{font-weight:800;font-size:22px;color:var(--psky);}
+.c-div{width:1px;height:32px;background:var(--borderB);}
+.c-logo-p{font-weight:800;font-size:26px;letter-spacing:1.5px;color:var(--psky);}
+.hero-kpis{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.hkpi{background:var(--white);border-radius:12px;padding:24px;border-left:3px solid var(--psky);}
+.hkpi.blue{border-left-color:var(--blue);}
+.hkpi.green{border-left-color:var(--green);}
+.hkpi.amber{border-left-color:var(--amber);}
+.hkpi-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.hkpi-val{font-size:32px;font-weight:800;color:var(--text);line-height:1;}
+.hkpi-sub{font-size:11px;color:var(--muted);margin-top:6px;}
+.hkpi-badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;margin-top:6px;}
+.bb{background:rgba(45,155,110,0.12);color:var(--green);}
+.br{background:rgba(254,63,60,0.12);color:var(--red);}
+.by{background:rgba(224,123,0,0.12);color:var(--amber);}
+.bg{background:rgba(121,152,174,0.12);color:var(--blue);}
+
+/* ── SECTIONS ───────────────────── */
+section{padding:80px 60px;border-bottom:1px solid var(--border);}
+section:nth-child(odd){background:var(--white);}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--psky);margin-bottom:12px;}
+.sec-title{font-size:36px;font-weight:800;color:var(--text);margin-bottom:8px;line-height:1.1;}
+.sec-desc{font-size:15px;color:var(--muted);max-width:720px;margin-bottom:48px;line-height:1.6;}
+
+/* ── KPI CARDS ──────────────────── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:28px;}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:28px;}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:28px;}
+.g5{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-bottom:28px;}
+.kcard{background:var(--white);border-radius:10px;padding:20px;border:1px solid var(--border);}
+.kcard.shadow{box-shadow:0 2px 12px rgba(0,0,0,0.06);}
+.aline{border-top:3px solid var(--psky);}
+.aline.blue{border-top-color:var(--blue);}
+.aline.green{border-top-color:var(--green);}
+.aline.amber{border-top-color:var(--amber);}
+.aline.red{border-top-color:var(--red);}
+.kcard-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+.kcard-val{font-size:28px;font-weight:800;color:var(--text);line-height:1;}
+.kcard-sub{font-size:12px;color:var(--muted);margin-top:6px;}
+.kcard-delta{font-size:11px;font-weight:700;margin-top:8px;}
+.kcard-delta.up{color:var(--green);}
+.kcard-delta.dn{color:var(--red);}
+.kcard-delta.warn{color:var(--amber);}
+
+/* ── CHART BOXES ────────────────── */
+.cbox{background:var(--white);border-radius:12px;border:1px solid var(--border);padding:24px;margin-bottom:24px;}
+.cbox.blue{background:rgba(187,231,244,0.15);}
+.cbox-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.cbox-sub{font-size:11px;color:var(--muted);margin-bottom:20px;}
+
+/* ── WATERFALL ──────────────────── */
+.waterfall{display:flex;gap:4px;align-items:flex-end;height:200px;margin:20px 0;}
+.wf-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;}
+.wf-bar{width:100%;border-radius:4px 4px 0 0;}
+.wf-pos{background:rgba(45,155,110,0.7);}
+.wf-neg{background:rgba(254,63,60,0.6);}
+.wf-neu{background:rgba(121,152,174,0.65);}
+.wf-acc{background:rgba(232,97,26,0.7);}
+.wf-label{font-size:9px;color:var(--muted);text-align:center;}
+.wf-val{font-size:10px;font-weight:700;text-align:center;}
+
+/* ── CHANNEL TABLE ──────────────── */
+.ctable{width:100%;border-collapse:collapse;font-size:13px;}
+.ctable th{text-align:left;padding:10px 14px;background:var(--bg);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);}
+.ctable td{padding:10px 14px;border-bottom:1px solid var(--border);}
+.ctable tr:hover td{background:var(--psky-light);}
+.pill{display:inline-block;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;}
+.pill-green{background:rgba(45,155,110,0.12);color:var(--green);}
+.pill-red{background:rgba(254,63,60,0.12);color:var(--red);}
+.pill-amber{background:rgba(224,123,0,0.12);color:var(--amber);}
+.pill-blue{background:rgba(121,152,174,0.12);color:var(--blue);}
+.pill-psky{background:rgba(232,97,26,0.12);color:var(--psky);}
+
+/* ── BENCHMARK TABLE ────────────── */
+.btbl{width:100%;border-collapse:collapse;font-size:12px;}
+.btbl th{padding:10px 14px;background:var(--blue);color:white;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-align:left;}
+.btbl td{padding:10px 14px;border-bottom:1px solid var(--border);}
+.btbl tr:nth-child(even) td{background:rgba(121,152,174,0.04);}
+.btbl .status-ok{color:var(--green);font-weight:700;}
+.btbl .status-warn{color:var(--amber);font-weight:700;}
+.btbl .status-bad{color:var(--red);font-weight:700;}
+.btbl .status-exc{color:var(--psky);font-weight:700;}
+
+/* ── INSIGHT CARDS ──────────────── */
+.icard{border-radius:12px;padding:28px;margin-bottom:16px;}
+.icard.red{background:rgba(254,63,60,0.06);border-left:4px solid var(--red);}
+.icard.amber{background:rgba(224,123,0,0.06);border-left:4px solid var(--amber);}
+.icard.blue{background:rgba(121,152,174,0.08);border-left:4px solid var(--blue);}
+.icard.green{background:rgba(45,155,110,0.06);border-left:4px solid var(--green);}
+.icard-tag{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;}
+.icard.red .icard-tag{color:var(--red);}
+.icard.amber .icard-tag{color:var(--amber);}
+.icard.blue .icard-tag{color:var(--blue);}
+.icard.green .icard-tag{color:var(--green);}
+.icard-title{font-size:17px;font-weight:700;margin-bottom:12px;}
+.icard-row{display:flex;gap:32px;flex-wrap:wrap;margin-top:12px;}
+.icard-metric{font-size:12px;color:var(--muted);}
+.icard-metric strong{color:var(--text);}
+.icard-impact{font-size:13px;font-weight:700;margin-top:12px;padding:10px 16px;background:var(--white);border-radius:8px;display:inline-block;}
+
+/* ── LEVER CARDS ────────────────── */
+.lcard{background:var(--white);border-radius:12px;padding:24px;border:1px solid var(--border);border-top:3px solid var(--psky);}
+.lcard.blue{border-top-color:var(--blue);}
+.lcard.green{border-top-color:var(--green);}
+.lcard.amber{border-top-color:var(--amber);}
+.lcard-num{font-size:11px;font-weight:700;letter-spacing:1px;color:var(--psky);margin-bottom:10px;}
+.lcard.blue .lcard-num{color:var(--blue);}
+.lcard.green .lcard-num{color:var(--green);}
+.lcard.amber .lcard-num{color:var(--amber);}
+.lcard-title{font-size:15px;font-weight:700;margin-bottom:14px;}
+.lcard-scenarios{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.lscen{background:var(--bg);border-radius:8px;padding:12px;}
+.lscen-label{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.lscen-val{font-size:18px;font-weight:800;color:var(--text);}
+.lscen-sub{font-size:10px;color:var(--muted);}
+.lcard-ai{font-size:11px;color:var(--muted);line-height:1.5;padding:10px;background:rgba(187,231,244,0.2);border-radius:8px;}
+.lcard-ai strong{color:var(--blue);}
+
+/* ── CRITICAL BANNER ────────────── */
+.critical-banner{background:linear-gradient(135deg,#fff1ee,#ffe8e8);border:1px solid rgba(254,63,60,0.2);border-radius:12px;padding:28px;margin-bottom:32px;}
+.cb-tag{font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--red);margin-bottom:8px;text-transform:uppercase;}
+.cb-title{font-size:20px;font-weight:800;color:var(--text);margin-bottom:8px;}
+.cb-body{font-size:14px;color:var(--muted);line-height:1.6;}
+
+/* ── RADAR ──────────────────────── */
+.radar-wrap{max-width:400px;margin:0 auto;}
+
+/* ── BENCHMARK INFO BOX ─────────── */
+.bench-info{background:rgba(121,152,174,0.06);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:28px;font-size:13px;line-height:1.7;color:var(--muted);}
+.bench-info strong{color:var(--text);}
+
+/* ── PROJECTION TABLE ───────────── */
+.proj-table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:24px;}
+.proj-table th{padding:10px 14px;background:var(--blue);color:white;font-weight:700;text-align:right;}
+.proj-table th:first-child{text-align:left;}
+.proj-table td{padding:10px 14px;border-bottom:1px solid var(--border);text-align:right;}
+.proj-table td:first-child{text-align:left;font-weight:600;}
+.proj-table .highlight{background:rgba(232,97,26,0.06);}
+.proj-table .subtotal{background:var(--bg);font-weight:700;}
+
+/* ── FOOTER ─────────────────────── */
+footer{background:var(--blue);color:white;padding:48px 60px;}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;}
+.footer-logos{display:flex;align-items:center;gap:20px;}
+.f-logo-s{font-weight:800;font-size:18px;color:white;}
+.f-logo-s span{color:rgba(255,255,255,0.5);}
+.f-logo-div{width:1px;height:28px;background:rgba(255,255,255,0.3);}
+.f-logo-p{font-weight:800;font-size:22px;letter-spacing:1px;color:white;opacity:0.9;}
+.footer-meta{font-size:12px;color:rgba(255,255,255,0.6);text-align:right;line-height:1.8;}
+.footer-disclaimer{font-size:11px;color:rgba(255,255,255,0.4);padding-top:24px;border-top:1px solid rgba(255,255,255,0.1);}
+
+/* ── RESPONSIVE ─────────────────── */
+@media(max-width:900px){
+  .cover{grid-template-columns:1fr;}
+  .cover-right{display:none;}
+  .g4,.g5{grid-template-columns:1fr 1fr;}
+  .g3{grid-template-columns:1fr 1fr;}
+  section{padding:48px 24px;}
+  .cover-left{padding:48px 24px;}
+}
+
+/* ── CHANNEL MIX BAR ────────────── */
+.mix-bar{height:32px;border-radius:8px;overflow:hidden;display:flex;margin-bottom:8px;}
+.mix-seg{display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:white;}
+
+/* ── SPECIAL HIGHLIGHT ──────────── */
+.highlight-box{background:var(--psky);color:white;border-radius:12px;padding:24px 28px;margin-bottom:24px;}
+.highlight-box .hb-label{font-size:10px;font-weight:700;letter-spacing:1.5px;opacity:0.8;margin-bottom:6px;}
+.highlight-box .hb-val{font-size:36px;font-weight:800;}
+.highlight-box .hb-sub{font-size:13px;opacity:0.85;margin-top:4px;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logos">
+    <div class="logo-suntzu">SUN<span>TZU</span></div>
+    <div class="logo-divider"></div>
+    <div class="logo-pablosky">PABLO<span>SKY</span></div>
+  </div>
+  <div class="nav-meta">Unit Economics Report &nbsp;·&nbsp; Sep 2024 – Ago 2025 &nbsp;·&nbsp; Confidencial</div>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- COVER -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-left">
+    <div class="cover-eyebrow">Suntzu Growth Advisory · 2025</div>
+    <div class="cover-title">UNIT /<br>ECONOMICS /<br>REPORT<span>.</span></div>
+    <div class="cover-desc">Análisis de motor económico, rentabilidad por canal, métricas de cliente digital y palancas de crecimiento para Pablosky — calzado infantil premium Made in Spain.</div>
+    <div class="cover-logos-box">
+      <div class="c-logo-s">SUNTZU</div>
+      <div class="c-div"></div>
+      <div class="c-logo-p">PABLOSKY</div>
+    </div>
+  </div>
+  <div class="cover-right">
+    <div style="margin-bottom:24px;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:20px;">KPIs EJECUTIVOS · 2024</div>
+      <div class="hero-kpis">
+        <div class="hkpi">
+          <div class="hkpi-label">Revenue Total</div>
+          <div class="hkpi-val">€21,3M</div>
+          <div class="hkpi-sub">Modelo financiero 2024</div>
+          <span class="hkpi-badge bb">▲ +4,9% YoY 2025E</span>
+        </div>
+        <div class="hkpi blue">
+          <div class="hkpi-label">Gross Margin</div>
+          <div class="hkpi-val">59%</div>
+          <div class="hkpi-sub">€12,6M margen bruto</div>
+          <span class="hkpi-badge bg">SANO vs benchmark</span>
+        </div>
+        <div class="hkpi green">
+          <div class="hkpi-label">EBITDA</div>
+          <div class="hkpi-val">13%</div>
+          <div class="hkpi-sub">€2,7M absoluto</div>
+          <span class="hkpi-badge bb">SANO vs benchmark</span>
+        </div>
+        <div class="hkpi amber">
+          <div class="hkpi-label">LTV:CAC Digital</div>
+          <div class="hkpi-val">2,7x</div>
+          <div class="hkpi-sub">Canal D2C online (12m)</div>
+          <span class="hkpi-badge bg">Zona sana</span>
+        </div>
+        <div class="hkpi" style="border-left-color:var(--psky);">
+          <div class="hkpi-label">Shop Online Growth</div>
+          <div class="hkpi-val">+40%</div>
+          <div class="hkpi-sub">vs. año anterior (ES)</div>
+          <span class="hkpi-badge" style="background:rgba(232,97,26,0.12);color:var(--psky);">Motor de futuro</span>
+        </div>
+        <div class="hkpi">
+          <div class="hkpi-label">Revenue Digital</div>
+          <div class="hkpi-val">€5,0M</div>
+          <div class="hkpi-sub">eComm + Otros digital 2024</div>
+          <span class="hkpi-badge br">↓ Insuficiente aún</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- S01 — P&L HISTÓRICA Y PROYECCIÓN -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section id="s01">
+  <div class="eyebrow">S01 — P&L & Proyección</div>
+  <div class="sec-title">Motor financiero 2024–2028</div>
+  <div class="sec-desc">Análisis del P&L consolidado y proyección por canal. El modelo muestra una empresa con márgenes sanos pero en un escenario de revenue estancado y estructura de costes rígida que comprime el EBITDA en el horizonte 2027–2028.</div>
+
+  <div class="g5">
+    <div class="kcard aline shadow">
+      <div class="kcard-label">Revenue 2024</div>
+      <div class="kcard-val">€21,3M</div>
+      <div class="kcard-delta up">▲ Base real</div>
+    </div>
+    <div class="kcard aline blue shadow">
+      <div class="kcard-label">Revenue 2025E</div>
+      <div class="kcard-val">€22,3M</div>
+      <div class="kcard-delta up">▲ +4,9% YoY</div>
+    </div>
+    <div class="kcard aline amber shadow">
+      <div class="kcard-label">Revenue 2027E</div>
+      <div class="kcard-val">€21,5M</div>
+      <div class="kcard-delta warn">▼ -1,7% vs 2025E</div>
+    </div>
+    <div class="kcard aline red shadow">
+      <div class="kcard-label">Revenue 2028E</div>
+      <div class="kcard-val">€19,1M</div>
+      <div class="kcard-delta dn">▼ -14,3% vs 2025E</div>
+    </div>
+    <div class="kcard aline green shadow">
+      <div class="kcard-label">Gross Margin</div>
+      <div class="kcard-val">59%</div>
+      <div class="kcard-delta up">Estable 2024–2028</div>
+    </div>
+  </div>
+
+  <!-- Tabla P&L por año -->
+  <div class="cbox" style="margin-bottom:28px;">
+    <div class="cbox-title">P&L Proyectado por Canal (€k) — Caso Base</div>
+    <div class="cbox-sub">Fuente: PABLOSKY_Modelo financiero_2025-28 v2.0. Datos en miles de euros.</div>
+    <table class="proj-table">
+      <thead>
+        <tr>
+          <th>Concepto</th>
+          <th>2024</th>
+          <th>2025E</th>
+          <th>2026E</th>
+          <th>2027E</th>
+          <th>2028E</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="highlight">
+          <td>🔶 GGAA (ECI, Merkal, Amazon Vendor)</td>
+          <td>4.201</td>
+          <td>4.327</td>
+          <td>4.457</td>
+          <td>4.591</td>
+          <td>4.729</td>
+        </tr>
+        <tr>
+          <td>Otros local (Wholesale España)</td>
+          <td>5.498</td>
+          <td>5.400</td>
+          <td>4.700</td>
+          <td>4.000</td>
+          <td>1.800</td>
+        </tr>
+        <tr>
+          <td>Internacional (B2B)</td>
+          <td>6.631</td>
+          <td>6.800</td>
+          <td>7.000</td>
+          <td>6.000</td>
+          <td>5.000</td>
+        </tr>
+        <tr class="highlight">
+          <td>⚡ eCommerce (Shop Online)</td>
+          <td>2.456</td>
+          <td>2.900</td>
+          <td>3.150</td>
+          <td>3.450</td>
+          <td>3.800</td>
+        </tr>
+        <tr class="highlight">
+          <td>⚡ Otros Digital (Marketplaces)</td>
+          <td>2.502</td>
+          <td>2.900</td>
+          <td>3.150</td>
+          <td>3.450</td>
+          <td>3.800</td>
+        </tr>
+        <tr class="subtotal">
+          <td>INGRESOS TOTALES</td>
+          <td>21.287</td>
+          <td>22.327</td>
+          <td>22.457</td>
+          <td>21.491</td>
+          <td>19.129</td>
+        </tr>
+        <tr>
+          <td>Compras y variación existencias</td>
+          <td>8.663</td>
+          <td>9.086</td>
+          <td>9.139</td>
+          <td>8.746</td>
+          <td>7.784</td>
+        </tr>
+        <tr class="subtotal">
+          <td>MARGEN BRUTO</td>
+          <td>12.625 (59%)</td>
+          <td>13.241 (59%)</td>
+          <td>13.318 (59%)</td>
+          <td>12.745 (59%)</td>
+          <td>11.344 (59%)</td>
+        </tr>
+        <tr>
+          <td>Sueldos y salarios</td>
+          <td>6.685</td>
+          <td>6.886</td>
+          <td>7.092</td>
+          <td>7.305</td>
+          <td>7.524</td>
+        </tr>
+        <tr>
+          <td>Publicidad</td>
+          <td>1.022</td>
+          <td>1.116</td>
+          <td>1.123</td>
+          <td>1.075</td>
+          <td>956</td>
+        </tr>
+        <tr>
+          <td>Prof. independientes + OPEX producción</td>
+          <td>1.719</td>
+          <td>1.771</td>
+          <td>1.824</td>
+          <td>1.878</td>
+          <td>1.935</td>
+        </tr>
+        <tr>
+          <td>Otro OPEX</td>
+          <td>485</td>
+          <td>500</td>
+          <td>515</td>
+          <td>530</td>
+          <td>546</td>
+        </tr>
+        <tr class="subtotal">
+          <td>EBITDA</td>
+          <td>2.713 (13%)</td>
+          <td>2.969 (13%)</td>
+          <td>2.765 (12%)</td>
+          <td>1.957 (9%)</td>
+          <td>383 (2%)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="g2">
+    <div class="cbox">
+      <div class="cbox-title">Revenue y EBITDA por año (€k)</div>
+      <div class="cbox-sub">Evolución 2024–2028E. Proyección caso base.</div>
+      <canvas id="chartRevEbitda" height="220"></canvas>
+    </div>
+    <div class="cbox">
+      <div class="cbox-title">Cascada de Margen 2024</div>
+      <div class="cbox-sub">De revenue a EBITDA. Fórmula: Revenue → COGS → GM → OPEX → EBITDA</div>
+      <canvas id="chartWaterfall" height="220"></canvas>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div class="cbox">
+      <div class="cbox-title">Estructura de costes % revenue 2024</div>
+      <div class="cbox-sub">COGS + OPEX desglosado sobre revenue total.</div>
+      <canvas id="chartCostes" height="220"></canvas>
+    </div>
+    <div class="cbox">
+      <div class="cbox-title">Revenue por canal 2024 vs 2028E (€k)</div>
+      <div class="cbox-sub">Evolución y shift del mix de canales en el horizonte proyectado.</div>
+      <canvas id="chartCanales" height="220"></canvas>
+    </div>
+  </div>
+
+  <!-- Mix de canales visual -->
+  <div class="cbox">
+    <div class="cbox-title">Mix de canales — Peso en volumen de pares (PLAN SKY)</div>
+    <div class="cbox-sub">Distribución actual del negocio. B2B domina el 90% del volumen, con rentabilidad media muy inferior al canal D2C.</div>
+    <div style="margin-top:16px;">
+      <div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:8px;">B2C DIGITAL — 10% volumen · Rentabilidad 5–6x escandallo</div>
+      <div class="mix-bar" style="height:28px;">
+        <div class="mix-seg" style="width:7%;background:var(--psky);">7%</div>
+        <div class="mix-seg" style="width:3%;background:var(--psky-mid);">3%</div>
+      </div>
+      <div style="display:flex;gap:24px;font-size:11px;color:var(--muted);margin-bottom:16px;">
+        <span style="color:var(--psky);">■ Shop Online (7%)</span>
+        <span style="color:var(--psky-mid);">■ Marketplaces B2C (3%)</span>
+      </div>
+      <div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:8px;">B2B ESPAÑA — 60% volumen · Rentabilidad 0,9–2,5x</div>
+      <div class="mix-bar" style="height:28px;">
+        <div class="mix-seg" style="width:20%;background:var(--blue);">ECI 20%</div>
+        <div class="mix-seg" style="width:6%;background:#8aabbd;">6%</div>
+        <div class="mix-seg" style="width:4%;background:#9dbdd0;">4%</div>
+        <div class="mix-seg" style="width:5%;background:#b0d0e3;">5%</div>
+        <div class="mix-seg" style="width:25%;background:#c3e0f0;color:#2a4a6b;">Wholesale 25%</div>
+      </div>
+      <div style="display:flex;gap:20px;font-size:11px;color:var(--muted);margin-bottom:16px;flex-wrap:wrap;">
+        <span style="color:var(--blue);">■ ECI Firme (20%)</span>
+        <span style="color:#8aabbd;">■ Amazon Vendor (6%)</span>
+        <span style="color:#9dbdd0;">■ Merkal (4%)</span>
+        <span style="color:#b0d0e3;">■ Liquidación (5%)</span>
+        <span style="color:#c3e0f0;text-shadow:0 0 1px #888;">■ Wholesale ESP (25%)</span>
+      </div>
+      <div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:8px;">B2B INTERNACIONAL — 30% volumen · Rentabilidad 1,2–1,5x</div>
+      <div class="mix-bar" style="height:28px;">
+        <div class="mix-seg" style="width:10%;background:#4a7a5c;">UAE 10%</div>
+        <div class="mix-seg" style="width:5%;background:#5a8a6c;">RUS 5%</div>
+        <div class="mix-seg" style="width:15%;background:#6a9a7c;">Resto INT 15%</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- S02 — CANAL DIGITAL Sep24–Ago25 -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section id="s02" style="background:var(--bg);">
+  <div class="eyebrow">S02 — Canal Digital</div>
+  <div class="sec-title">Shop Online & Marketplaces Sep24–Ago25</div>
+  <div class="sec-desc">Análisis del canal D2C digital, el de mayor rentabilidad (5–6x escandallo). Con un crecimiento del +40% YoY en España y una conversión del 3,4%, representa la palanca de crecimiento más rentable del negocio aunque aún con peso insuficiente (23% revenue).</div>
+
+  <div class="g4">
+    <div class="kcard aline shadow">
+      <div class="kcard-label">Shop Online ES</div>
+      <div class="kcard-val">€2,85M</div>
+      <div class="kcard-delta up">▲ +40% YoY</div>
+      <div class="kcard-sub">Canal más rentable: 5x escandallo</div>
+    </div>
+    <div class="kcard aline blue shadow">
+      <div class="kcard-label">Shop Online EU</div>
+      <div class="kcard-val">€196k</div>
+      <div class="kcard-delta warn">↗ En desarrollo</div>
+      <div class="kcard-sub">6x escandallo · Gran oportunidad</div>
+    </div>
+    <div class="kcard aline green shadow">
+      <div class="kcard-label">Conversión Total</div>
+      <div class="kcard-val">3,4%</div>
+      <div class="kcard-delta up">Paid 3,8% · Organic 3,0%</div>
+      <div class="kcard-sub">CR sano para moda infantil</div>
+    </div>
+    <div class="kcard aline amber shadow">
+      <div class="kcard-label">ECI Marketplace</div>
+      <div class="kcard-val">€1,96M</div>
+      <div class="kcard-delta warn">Comisión ~17,4% neto</div>
+      <div class="kcard-sub">Mayor canal marketplace</div>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div class="cbox">
+      <div class="cbox-title">Fuentes de tráfico — Peso y Conversión</div>
+      <div class="cbox-sub">Fuente: PErfilComprador-Sep24-agos25. Mix paid/organic y tasas de conversión por canal.</div>
+      <canvas id="chartTrafico" height="240"></canvas>
+    </div>
+    <div class="cbox">
+      <div class="cbox-title">Revenue digital por canal (Sep24–Ago25)</div>
+      <div class="cbox-sub">Shop Online ES vs EU vs Marketplaces (Amazon, ECI, Decathlon).</div>
+      <canvas id="chartDigitalMix" height="240"></canvas>
+    </div>
+  </div>
+
+  <!-- Tabla fuentes tráfico -->
+  <div class="cbox">
+    <div class="cbox-title">Detalle de fuentes — Peso visitas & % Conversión</div>
+    <div class="cbox-sub">Fuente: PErfilComprador-Sep24-agos25.png. Oportunidad: Newsletter/CRM (4,7% CR) y App (6,9% CR) son los canales con mayor conversión pero menor peso de tráfico.</div>
+    <table class="ctable" style="margin-top:12px;">
+      <thead>
+        <tr>
+          <th>Canal</th><th>Peso Visitas</th><th>% Conversión</th><th>Evaluación</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>PAID (total)</strong></td><td>52,1%</td><td>3,8%</td><td><span class="pill pill-blue">Principal adquisición</span></td></tr>
+        <tr><td>&nbsp;&nbsp;Google SEM</td><td>42,0%</td><td>3,8%</td><td><span class="pill pill-green">Motor principal</span></td></tr>
+        <tr><td>&nbsp;&nbsp;Newsletter / CRM</td><td>6,4%</td><td>4,7%</td><td><span class="pill pill-psky">⚡ Mejor CR paid · Subinvertido</span></td></tr>
+        <tr><td>&nbsp;&nbsp;Meta CPC</td><td>2,4%</td><td>1,3%</td><td><span class="pill pill-red">CR bajo</span></td></tr>
+        <tr><td>&nbsp;&nbsp;Bing CPC</td><td>0,5%</td><td>5,9%</td><td><span class="pill pill-psky">⚡ CR muy alto · Escalar</span></td></tr>
+        <tr><td>&nbsp;&nbsp;Propelbon CPA</td><td>0,1%</td><td>3,6%</td><td><span class="pill pill-blue">Eficiente</span></td></tr>
+        <tr><td><strong>NO PAID (total)</strong></td><td>47,9%</td><td>3,0%</td><td><span class="pill pill-blue">Orgánico sólido</span></td></tr>
+        <tr><td>&nbsp;&nbsp;Directo</td><td>31,6%</td><td>3,3%</td><td><span class="pill pill-green">Fidelización alta</span></td></tr>
+        <tr><td>&nbsp;&nbsp;Google SEO</td><td>12,0%</td><td>2,6%</td><td><span class="pill pill-blue">Oportunidad SEO</span></td></tr>
+        <tr><td>&nbsp;&nbsp;App</td><td>0,4%</td><td>6,9%</td><td><span class="pill pill-psky">⚡ CR máximo · Escalar app</span></td></tr>
+        <tr><td>&nbsp;&nbsp;Chollo.es</td><td>~0%</td><td>10,8%</td><td><span class="pill pill-amber">CR altísimo · ¿Volumen?</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Devoluciones -->
+  <div class="cbox blue">
+    <div class="cbox-title">Análisis de Devoluciones — Impacto en Retención</div>
+    <div class="cbox-sub">Fuente: DevolucionsYcambios-Sep24-agos25. 17.155 casos analizados. El sistema "Dos Tallas" es el principal driver de recompra post-devolución.</div>
+    <div class="g4" style="margin-top:16px;">
+      <div style="text-align:center;padding:16px;">
+        <div style="font-size:32px;font-weight:800;color:var(--red);">48,8%</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;">Sin Dos Tallas + Sin Recompra<br><strong>8.385 clientes perdidos</strong></div>
+      </div>
+      <div style="text-align:center;padding:16px;">
+        <div style="font-size:32px;font-weight:800;color:var(--green);">36,9%</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;">Sin Dos Tallas + Con Recompra<br><strong>6.335 clientes retenidos</strong></div>
+      </div>
+      <div style="text-align:center;padding:16px;">
+        <div style="font-size:32px;font-weight:800;color:var(--psky);">12,6%</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;">Con Dos Tallas + Sin Recompra<br><strong>2.170 casos</strong></div>
+      </div>
+      <div style="text-align:center;padding:16px;">
+        <div style="font-size:32px;font-weight:800;color:var(--blue);">1,7%</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;">Con Dos Tallas + Con Recompra<br><strong>285 casos</strong></div>
+      </div>
+    </div>
+    <div style="background:rgba(254,63,60,0.06);border-radius:8px;padding:14px;font-size:13px;margin-top:4px;">
+      <strong>Motivo principal:</strong> "Me queda grande" (44,7%) y "Me queda pequeño" (41,8%) → La guía de tallas y el sistema Dos Tallas son la palanca de reducción de devoluciones más directa.
+    </div>
+  </div>
+
+  <!-- Top categorías -->
+  <div class="cbox" style="margin-top:8px;">
+    <div class="cbox-title">Top Categorías — ECI Marketplace (Sep24–Ago25)</div>
+    <div class="cbox-sub">Fuente: Categorias-ECI-MarketPlace + TOPSELLINGSep24-agos25. Distribución por género/edad.</div>
+    <canvas id="chartCategorias" height="200"></canvas>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- S03 — UNIT ECONOMICS -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section id="s03">
+  <div class="eyebrow">S03 — Unit Economics</div>
+  <div class="sec-title">CAC, LTV y Motor de Retención</div>
+  <div class="sec-desc">Análisis del canal D2C digital — el único canal donde el unit economics del cliente individual es medible y gestionable directamente. El negocio B2B (90% revenue) opera bajo lógica de rentabilidad por escandallo, no por cliente.</div>
+
+  <div class="critical-banner">
+    <div class="cb-tag">⚠ Hallazgo Crítico</div>
+    <div class="cb-title">El 90% del revenue opera a 0,9–2,5x escandallo. El D2C opera a 5–6x pero representa solo el 10% del volumen.</div>
+    <div class="cb-body">ECI Firme, el mayor canal (20% volumen), opera a <strong>0,9x escandallo</strong> — virtualmente breakeven después de descuentos, comisiones de agente y contribución a publicidad. El canal Shop Online (5–6x escandallo) crece al +40% YoY pero desde una base pequeña. El reto estratégico es acelerar el shift de mix sin desestabilizar los canales B2B actuales que financian la estructura.</div>
+  </div>
+
+  <div class="g5">
+    <div class="kcard aline shadow">
+      <div class="kcard-label">CAC Digital Estimado</div>
+      <div class="kcard-val">~€24</div>
+      <div class="kcard-sub">Marketing D2C estimado / nuevos clientes digitales</div>
+      <div class="kcard-delta up">Fórmula: Mkt Digital / Nuevos Clientes</div>
+    </div>
+    <div class="kcard aline blue shadow">
+      <div class="kcard-label">AOV Online (neto devos)</div>
+      <div class="kcard-val">~€57–63</div>
+      <div class="kcard-sub">Calzado infantil premium · Estimado de ratio revenue/pedidos</div>
+      <div class="kcard-delta up">Dentro de rango premium infantil</div>
+    </div>
+    <div class="kcard aline green shadow">
+      <div class="kcard-label">LTV 12m (D2C)</div>
+      <div class="kcard-val">€63,7</div>
+      <div class="kcard-sub">AOV €60 × Freq 1,8x × GM 59%</div>
+      <div class="kcard-delta up">LTV:CAC = 2,7x → SANO</div>
+    </div>
+    <div class="kcard aline shadow" style="border-top-color:var(--psky);">
+      <div class="kcard-label">LTV 24m (D2C)</div>
+      <div class="kcard-val">€174,5</div>
+      <div class="kcard-sub">12m × 2 × GM × (1 + Ret. 37%)</div>
+      <div class="kcard-delta up">LTV:CAC 24m = 7,3x → EXCELENTE</div>
+    </div>
+    <div class="kcard aline amber shadow">
+      <div class="kcard-label">Payback Period</div>
+      <div class="kcard-val">~8 meses</div>
+      <div class="kcard-sub">CAC €24 / (AOV €60 × GM 59%)</div>
+      <div class="kcard-delta up">Muy eficiente vs benchmark</div>
+    </div>
+  </div>
+
+  <div style="background:rgba(232,97,26,0.06);border:1px solid rgba(232,97,26,0.2);border-radius:10px;padding:16px 20px;margin-bottom:28px;font-size:13px;color:var(--muted);">
+    <strong style="color:var(--psky);">Nota metodológica sobre Payback y CAC:</strong> Pablosky opera un modelo híbrido B2B/D2C donde el CAC real (costes de estructura fija) es incalculable sin segmentación P&L por canal. El CAC digital (~€24) se estima asignando el 60% del gasto en publicidad (€1.022k) al canal D2C digital y dividiendo entre nuevos clientes online estimados (~25.000/año). Para el negocio B2B, el CAC incluye la estructura completa de personal (€6.685k) + red de agentes — cuantificable solo con datos CRM B2B detallados.
+  </div>
+
+  <div class="g2">
+    <div class="cbox">
+      <div class="cbox-title">CAC vs LTV Digital — Comparativa</div>
+      <div class="cbox-sub">CAC ~€24 vs LTV 12m €63,7 vs LTV 24m €174,5. Curvas de valor por cohorte.</div>
+      <canvas id="chartLtvCac" height="240"></canvas>
+    </div>
+    <div class="cbox">
+      <div class="cbox-title">LTV:CAC — Evolución por horizonte temporal</div>
+      <div class="cbox-sub">El ratio mejora significativamente con el tiempo gracias a la frecuencia natural de compra en calzado infantil (crecimiento de talla, temporadas).</div>
+      <canvas id="chartRatio" height="240"></canvas>
+    </div>
+  </div>
+
+  <!-- Sensibilidad retención -->
+  <div class="cbox blue">
+    <div class="cbox-title">Tabla de Sensibilidad — LTV:CAC según Retención y AOV</div>
+    <div class="cbox-sub">Impacto combinado de mejoras en retención (de 37% actual) y AOV (de €60 actual) sobre LTV:CAC 24m. Celda base marcada en naranja.</div>
+    <div style="overflow-x:auto;margin-top:16px;">
+    <table style="border-collapse:collapse;font-size:12px;min-width:500px;">
+      <thead>
+        <tr>
+          <th style="padding:10px 14px;background:var(--blue);color:white;text-align:left;">Retención →<br>AOV ↓</th>
+          <th style="padding:10px 14px;background:var(--blue);color:white;text-align:center;">25%</th>
+          <th style="padding:10px 14px;background:var(--blue);color:white;text-align:center;">37% (actual)</th>
+          <th style="padding:10px 14px;background:var(--blue);color:white;text-align:center;">45%</th>
+          <th style="padding:10px 14px;background:var(--blue);color:white;text-align:center;">55%</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding:10px 14px;font-weight:700;background:var(--bg);">€50</td>
+          <td style="padding:10px 14px;text-align:center;">4,6x</td>
+          <td style="padding:10px 14px;text-align:center;">5,5x</td>
+          <td style="padding:10px 14px;text-align:center;">6,1x</td>
+          <td style="padding:10px 14px;text-align:center;">6,9x</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 14px;font-weight:700;background:rgba(232,97,26,0.08);">€60 (actual)</td>
+          <td style="padding:10px 14px;text-align:center;">5,5x</td>
+          <td style="padding:10px 14px;text-align:center;background:rgba(232,97,26,0.15);font-weight:700;color:var(--psky);">7,3x ★</td>
+          <td style="padding:10px 14px;text-align:center;">8,1x</td>
+          <td style="padding:10px 14px;text-align:center;">9,2x</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 14px;font-weight:700;background:var(--bg);">€70</td>
+          <td style="padding:10px 14px;text-align:center;">6,5x</td>
+          <td style="padding:10px 14px;text-align:center;">8,5x</td>
+          <td style="padding:10px 14px;text-align:center;">9,5x</td>
+          <td style="padding:10px 14px;text-align:center;">10,7x</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 14px;font-weight:700;background:var(--bg);">€80</td>
+          <td style="padding:10px 14px;text-align:center;">7,4x</td>
+          <td style="padding:10px 14px;text-align:center;">9,7x</td>
+          <td style="padding:10px 14px;text-align:center;">10,8x</td>
+          <td style="padding:10px 14px;text-align:center;">12,3x</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- S04 — BENCHMARKS -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section id="s04" style="background:var(--bg);">
+  <div class="eyebrow">S04 — Comparativa de Mercado</div>
+  <div class="sec-title">Benchmarks aplicados</div>
+  <div class="sec-desc">Pablosky opera como fabricante B2B con canal D2C digital en crecimiento. Hemos aplicado el benchmark de <strong>Retail Físico / ROPO (España / Europa)</strong> para el negocio core B2B-fabricante y los benchmarks de <strong>E-commerce Puro</strong> para evaluar el canal digital.</div>
+
+  <div class="bench-info">
+    <strong>Benchmarks utilizados de la metodología Suntzu:</strong><br>
+    <strong>1. Retail Físico / ROPO (España / Europa):</strong> Aplicado a métricas P&L globales (Gross Margin, EBITDA, Personnel%, Revenue YoY). Justificación: Pablosky es un fabricante-marca con distribución B2B dominante (90% volumen), modelo análogo a retail omnicanal europeo.<br>
+    <strong>2. E-commerce Puro:</strong> Aplicado a métricas del canal digital D2C (CAC, LTV:CAC, Conversión, Marketing% revenue digital). Justificación: El canal Shop Online opera bajo lógica puramente digital, con métricas de adquisición y retención propias del ecommerce.<br>
+    <strong>Nota sectorial:</strong> No existen benchmarks públicos específicos para fabricantes de calzado infantil B2B en España. Los rangos utilizados son conservadores y provienen del benchmark retail/moda premium europeo.
+  </div>
+
+  <div class="g2" style="margin-bottom:28px;">
+    <div class="cbox">
+      <div class="cbox-title">Comparativa vs Benchmarks (Retail/ROPO España)</div>
+      <div class="cbox-sub">12 métricas clave. Verde = sano/excelente · Ámbar = atención · Rojo = alerta.</div>
+      <table class="btbl" style="margin-top:12px;">
+        <thead>
+          <tr><th>Métrica</th><th>Pablosky</th><th>Alerta</th><th>Sano</th><th>Excelente</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Gross Margin %</td><td><strong>59%</strong></td><td>&lt;45%</td><td>45–70%</td><td>&gt;70%</td><td class="status-ok">✓ SANO</td></tr>
+          <tr><td>EBITDA %</td><td><strong>13%</strong></td><td>&lt;5%</td><td>8–15%</td><td>&gt;20%</td><td class="status-ok">✓ SANO</td></tr>
+          <tr><td>Personnel % revenue</td><td><strong>31,4%</strong></td><td>&gt;35%</td><td>20–30%</td><td>&lt;20%</td><td class="status-warn">⚠ LÍMITE</td></tr>
+          <tr><td>Marketing % revenue</td><td><strong>4,8%</strong></td><td>&gt;25%</td><td>10–20%</td><td>&lt;8%</td><td class="status-ok">✓ Eficiente</td></tr>
+          <tr><td>Revenue YoY (2024→25E)</td><td><strong>+4,9%</strong></td><td>&lt;3%</td><td>5–10%</td><td>&gt;15%</td><td class="status-warn">⚠ LÍMITE</td></tr>
+          <tr><td>Revenue Online %</td><td><strong>~23%</strong></td><td>&lt;10%</td><td>15–30%</td><td>&gt;40%</td><td class="status-ok">✓ SANO</td></tr>
+          <tr><td>Revenue YoY 2027E</td><td><strong>-4,3%</strong></td><td>&lt;3%</td><td>5–10%</td><td>&gt;15%</td><td class="status-bad">✗ ALERTA</td></tr>
+          <tr><td>EBITDA % 2028E</td><td><strong>2%</strong></td><td>&lt;5%</td><td>8–15%</td><td>&gt;20%</td><td class="status-bad">✗ CRÍTICO</td></tr>
+          <tr><td>LTV:CAC D2C 12m</td><td><strong>2,7x</strong></td><td>&lt;2x</td><td>2–4x</td><td>&gt;5x</td><td class="status-ok">✓ SANO</td></tr>
+          <tr><td>LTV:CAC D2C 24m</td><td><strong>7,3x</strong></td><td>&lt;2x</td><td>2–4x</td><td>&gt;5x</td><td class="status-exc">★ EXCELENTE</td></tr>
+          <tr><td>Conversión ecomm</td><td><strong>3,4%</strong></td><td>&lt;1,5%</td><td>2–4%</td><td>&gt;4%</td><td class="status-ok">✓ SANO</td></tr>
+          <tr><td>Payback Period D2C</td><td><strong>~8 meses</strong></td><td>&gt;24m</td><td>12–18m</td><td>&lt;12m</td><td class="status-exc">★ EXCELENTE</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="cbox">
+      <div class="cbox-title">Radar de Posicionamiento</div>
+      <div class="cbox-sub">Score vs benchmark (0 = alerta, 5 = excelente). Visualización multidimensional.</div>
+      <div class="radar-wrap">
+        <canvas id="chartRadar" height="280"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div class="icard green">
+      <div class="icard-tag">✓ Fortaleza estructural</div>
+      <div class="icard-title">Gross Margin del 59% — sólido y estable</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.6;">Un GM del 59% estable en todos los años proyectados es un activo fundamental. La fabricación propia (Made in Spain) y el posicionamiento medio-alto sostienen este margen. Proteger esta línea es prioritario en cualquier decisión de mix de canales.</div>
+    </div>
+    <div class="icard green">
+      <div class="icard-tag">✓ Fortaleza estructural</div>
+      <div class="icard-title">LTV:CAC digital excelente (7,3x en 24m)</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.6;">Un ratio de 7,3x en 24 meses indica que el canal D2C es extraordinariamente eficiente. La frecuencia natural de compra en calzado infantil (crecimiento de talla, temporadas) genera retención orgánica sin necesidad de descuentos agresivos. Escalar este canal es la prioridad número uno.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- S05 — FRICCIONES DETECTADAS -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section id="s05">
+  <div class="eyebrow">S05 — Fricciones Detectadas</div>
+  <div class="sec-title">5 frenos al crecimiento rentable</div>
+  <div class="sec-desc">Ordenadas por impacto financiero estimado. Todas cuantificadas sobre los datos reales del P&L y de las operaciones del canal digital Sep24–Ago25.</div>
+
+  <div class="icard red">
+    <div class="icard-tag">FX01 · CRÍTICO</div>
+    <div class="icard-title">Revenue estructuralmente decreciente: el "Triángulo Tóxico" sin resolver</div>
+    <div class="icard-row">
+      <div class="icard-metric"><strong>Canal Otros local:</strong> €5,5M → €1,8M en 2028E (–67%)</div>
+      <div class="icard-metric"><strong>Internacional:</strong> €6,6M → €5,0M en 2028E (–25%)</div>
+      <div class="icard-metric"><strong>Digital compensa:</strong> €5,0M → €7,6M (+52%) pero insuficiente</div>
+    </div>
+    <div style="font-size:13px;color:var(--muted);margin-top:12px;line-height:1.6;">La dependencia del calzado infantil × segmento medio-alto × mercado español (2/3 del negocio) crea un triángulo de riesgos: crisis demográfica, presión de costes laborales y mercado deflacionario. Sin romper alguno de los tres vértices, el EBITDA proyectado colapsa al 2% en 2028E.</div>
+    <div class="icard-impact">💥 Impacto: EBITDA de €2,7M (2024) a €383k (2028E) si no se actúa. Pérdida de €2,3M EBITDA.</div>
+  </div>
+
+  <div class="icard red">
+    <div class="icard-tag">FX02 · CRÍTICO</div>
+    <div class="icard-title">Costes de personal superando benchmark: presión creciente sobre EBITDA</div>
+    <div class="icard-row">
+      <div class="icard-metric"><strong>Dato actual:</strong> Personal 31,4% revenue (€6,685k)</div>
+      <div class="icard-metric"><strong>Benchmark sano:</strong> 20–30% revenue</div>
+      <div class="icard-metric"><strong>2028E proyectado:</strong> 39,3% revenue (con revenue cayendo y salarios creciendo con inflación)</div>
+    </div>
+    <div style="font-size:13px;color:var(--muted);margin-top:12px;line-height:1.6;">El coste de personal crece al +3% anual (inflación) mientras el revenue decrece. En 2028E el ratio sería del 39,3%, en zona de alerta crítica. El Plan SKY identifica la fábrica como el mayor problema: absentismo, conflictividad sindical y pérdida de productividad.</div>
+    <div class="icard-impact">💥 Impacto: Reducir a 28% → ahorro de €714k → EBITDA +26% inmediato.</div>
+  </div>
+
+  <div class="icard amber">
+    <div class="icard-tag">FX03 · ALTA</div>
+    <div class="icard-title">Rentabilidad asimétrica: el mayor canal (ECI) opera a 0,9x escandallo</div>
+    <div class="icard-row">
+      <div class="icard-metric"><strong>ECI Firme:</strong> 20% del volumen a 0,9x (casi breakeven)</div>
+      <div class="icard-metric"><strong>Shop Online:</strong> 7% del volumen a 5x–6x (300–400% más rentable)</div>
+      <div class="icard-metric"><strong>Gap:</strong> ECI genera €4,2M revenue a 0,9x vs Shop Online €2,85M a 5x</div>
+    </div>
+    <div style="font-size:13px;color:var(--muted);margin-top:12px;line-height:1.6;">ECI Marketplace ha generado €1,96M en Sep24–Ago25, pero con comisiones del 17,4%+ y descuentos adicionales, el margen neto real es muy estrecho. La estrategia SKY propone analizar la rentabilidad individualizada del Top 5 clientes (ECI, Merkal, Amazon, RNA, Fawatem) para ajustar condiciones.</div>
+    <div class="icard-impact">⚠ Impacto: +1pp de mix desde ECI a D2C = +€213k EBITDA potencial. Sin riesgo de volumen.</div>
+  </div>
+
+  <div class="icard amber">
+    <div class="icard-tag">FX04 · MEDIA-ALTA</div>
+    <div class="icard-title">Devoluciones online: 48,8% sin recompra destruye LTV</div>
+    <div class="icard-row">
+      <div class="icard-metric"><strong>Sin recompra:</strong> 48,8% de todos los casos de devolución (8.385 clientes)</div>
+      <div class="icard-metric"><strong>Motivo principal:</strong> Sizing (44,7% grande + 41,8% pequeño)</div>
+      <div class="icard-metric"><strong>Dos Tallas:</strong> Reduce significativamente el no-recompra (de 48,8% a 12,6%)</div>
+    </div>
+    <div style="font-size:13px;color:var(--muted);margin-top:12px;line-height:1.6;">La falta de un sistema de guía de tallas eficaz destroza la retención post-devolución. El sistema "Dos Tallas" ya disponible reduce el no-recompra a 12,6% pero no está disponible en todos los productos. Implementarlo universalmente es la acción de menor coste y mayor impacto en LTV.</div>
+    <div class="icard-impact">⚠ Impacto: Reducir no-recompra del 48,8% al 25% → +€300k+ revenue recuperado/año.</div>
+  </div>
+
+  <div class="icard blue">
+    <div class="icard-tag">FX05 · MEDIA</div>
+    <div class="icard-title">CRM/Newsletter y App: mejor conversión del portfolio, menor inversión</div>
+    <div class="icard-row">
+      <div class="icard-metric"><strong>Newsletter/CRM:</strong> 4,7% CR con solo 6,4% del tráfico</div>
+      <div class="icard-metric"><strong>App:</strong> 6,9% CR (mayor de todos los canales) con 0,4% tráfico</div>
+      <div class="icard-metric"><strong>Google SEM:</strong> 42% tráfico, 3,8% CR (eficiente pero caro)</div>
+    </div>
+    <div style="font-size:13px;color:var(--muted);margin-top:12px;line-height:1.6;">Los canales de mayor conversión están subinvertidos. La App con 6,9% CR podría ser un motor de retención y frecuencia muy eficiente si se escala. El CRM/email con 4,7% CR (vs Meta 1,3%) genera mucho más valor por visita que las redes sociales donde se invierte proporcionalmente más.</div>
+    <div class="icard-impact">↗ Impacto: Doblar tráfico CRM → +€120k revenue. Escalar App → mejora retención 5pp → +€85k LTV.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- S06 — GROWTH LEVERS -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section id="s06" style="background:var(--bg);">
+  <div class="eyebrow">S06 — Growth Levers</div>
+  <div class="sec-title">5 palancas de crecimiento rentable</div>
+  <div class="sec-desc">Cada palanca incluye escenario conservador (+10–15%) y optimista (+25–35%), con la palanca de IA específica. El escenario combinado asume activación simultánea con sinergias cruzadas.</div>
+
+  <div class="g2" style="margin-bottom:24px;">
+    <div class="lcard">
+      <div class="lcard-num">GL01 — PALANCA PRIORITARIA</div>
+      <div class="lcard-title">🏷️ Sistema Duo Talla universal en todo el catálogo online</div>
+      <div class="lcard-scenarios">
+        <div class="lscen">
+          <div class="lscen-label">Conservador</div>
+          <div class="lscen-val">+€180k</div>
+          <div class="lscen-sub">No-recompra: 48,8% → 35%<br>Revenue recuperado/año</div>
+        </div>
+        <div class="lscen">
+          <div class="lscen-label">Optimista</div>
+          <div class="lscen-val">+€310k</div>
+          <div class="lscen-sub">No-recompra: 48,8% → 25%<br>Revenue recuperado/año</div>
+        </div>
+      </div>
+      <div class="lcard-ai"><strong>🤖 Palanca IA:</strong> Recomendador de talla personalizado (ML sobre compras pasadas + edad del niño + marca). Integrar en PDP y flujo de checkout. Reducción devos -30% → ahorro logístico adicional.</div>
+    </div>
+    <div class="lcard blue">
+      <div class="lcard-num">GL02 — ALTA OPORTUNIDAD</div>
+      <div class="lcard-title">🌍 Escalar Shop Online EU de €196k a €1M</div>
+      <div class="lcard-scenarios">
+        <div class="lscen">
+          <div class="lscen-label">Conservador</div>
+          <div class="lscen-val">+€304k</div>
+          <div class="lscen-sub">EU a €500k (×2,5)<br>Revenue adicional/año</div>
+        </div>
+        <div class="lscen">
+          <div class="lscen-label">Optimista</div>
+          <div class="lscen-val">+€804k</div>
+          <div class="lscen-sub">EU a €1M (×5)<br>A 6x escandallo</div>
+        </div>
+      </div>
+      <div class="lcard-ai"><strong>🤖 Palanca IA:</strong> SEO multilingüe automático + localización de contenidos con IA. Attribution modeling cross-market. Targeting lookalike en EU basado en perfil cliente ES.</div>
+    </div>
+  </div>
+
+  <div class="g2" style="margin-bottom:24px;">
+    <div class="lcard green">
+      <div class="lcard-num">GL03 — ESTRATÉGICA</div>
+      <div class="lcard-title">📊 Shift de mix: -3pp B2B bajo margen → +3pp D2C</div>
+      <div class="lcard-scenarios">
+        <div class="lscen">
+          <div class="lscen-label">Conservador</div>
+          <div class="lscen-val">+€640k</div>
+          <div class="lscen-sub">Shift +3pp a D2C<br>EBITDA impacto neto</div>
+        </div>
+        <div class="lscen">
+          <div class="lscen-label">Optimista</div>
+          <div class="lscen-val">+€1,5M</div>
+          <div class="lscen-sub">Shift +7pp en 3 años<br>Revenue + margen</div>
+        </div>
+      </div>
+      <div class="lcard-ai"><strong>🤖 Palanca IA:</strong> Pricing dinámico D2C (elasticidad por modelo/temporada). Predicción de demanda para reducir dependencia del canal liquidación (0,5x). B2B "self-service" con IA para reducir coste de atención agente.</div>
+    </div>
+    <div class="lcard amber">
+      <div class="lcard-num">GL04 — QUICK WIN</div>
+      <div class="lcard-title">📧 CRM + App: escalar los canales de mayor conversión</div>
+      <div class="lcard-scenarios">
+        <div class="lscen">
+          <div class="lscen-label">Conservador</div>
+          <div class="lscen-val">+€205k</div>
+          <div class="lscen-sub">2× tráfico CRM + App<br>Revenue + LTV</div>
+        </div>
+        <div class="lscen">
+          <div class="lscen-label">Optimista</div>
+          <div class="lscen-val">+€420k</div>
+          <div class="lscen-sub">3× CRM + programa<br>fidelización activo</div>
+        </div>
+      </div>
+      <div class="lcard-ai"><strong>🤖 Palanca IA:</strong> Automatización de flows CRM (post-compra, reactivación, anniversary del niño). Personalización dinámica de email por talla/edad. Notificaciones push predictivas en App.</div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:24px;">
+    <div class="lcard" style="border-top-color:var(--muted);">
+      <div class="lcard-num" style="color:var(--muted);">GL05 — OPTIMIZACIÓN</div>
+      <div class="lcard-title">🎯 Optimización SEM: escalar Bing CPC (5,9% CR) y mejorar bidding Google</div>
+      <div class="lcard-scenarios">
+        <div class="lscen">
+          <div class="lscen-label">Conservador</div>
+          <div class="lscen-val">+€105k</div>
+          <div class="lscen-sub">Bing ×3 + SEM CR 4,2%<br>Revenue adicional</div>
+        </div>
+        <div class="lscen">
+          <div class="lscen-label">Optimista</div>
+          <div class="lscen-val">+€280k</div>
+          <div class="lscen-sub">Full funnel optimization<br>CR 4,8% objetivo</div>
+        </div>
+      </div>
+      <div class="lcard-ai"><strong>🤖 Palanca IA:</strong> Smart bidding con Performance Max + señales de audiencia propias. Creative testing automático. Predictive CLV para maximizar pujas en segmentos de alta retención.</div>
+    </div>
+  </div>
+
+  <!-- Gráfico combinado -->
+  <div class="g2" style="margin-bottom:24px;">
+    <div class="cbox">
+      <div class="cbox-title">Impacto combinado escenario conservador</div>
+      <div class="cbox-sub">Suma de los 5 levers en escenario conservador: +€1,43M revenue adicional / año estimado.</div>
+      <canvas id="chartLevers" height="240"></canvas>
+    </div>
+    <div class="cbox">
+      <div class="cbox-title">Revenue proyectado con vs sin growth levers (€M)</div>
+      <div class="cbox-sub">Proyección 2024–2028E con y sin activación de palancas. Escenario conservador.</div>
+      <canvas id="chartProj" height="240"></canvas>
+    </div>
+  </div>
+
+  <div class="g3">
+    <div class="kcard aline shadow" style="border-top-color:var(--psky);">
+      <div class="kcard-label">Impacto Revenue (conservador)</div>
+      <div class="kcard-val">+€1,43M</div>
+      <div class="kcard-sub">Suma de GL01 a GL05 / año</div>
+      <div class="kcard-delta up">▲ +6,7% sobre revenue 2024</div>
+    </div>
+    <div class="kcard aline green shadow">
+      <div class="kcard-label">Impacto EBITDA estimado</div>
+      <div class="kcard-val">+€845k</div>
+      <div class="kcard-sub">Aplicando GM 59% sobre revenue incremental + eficiencias</div>
+      <div class="kcard-delta up">▲ +31% sobre EBITDA 2024</div>
+    </div>
+    <div class="kcard aline blue shadow">
+      <div class="kcard-label">Impacto Revenue (optimista)</div>
+      <div class="kcard-val">+€3,3M</div>
+      <div class="kcard-sub">Suma de GL01 a GL05 escenario alto</div>
+      <div class="kcard-delta up">▲ +15,5% sobre revenue 2024</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- FOOTER -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logos">
+      <div class="f-logo-s">SUN<span>TZU</span></div>
+      <div class="f-logo-div"></div>
+      <div class="f-logo-p">PABLOSKY</div>
+    </div>
+    <div class="footer-meta">
+      Unit Economics Report &nbsp;·&nbsp; Abril 2026<br>
+      Período de datos: Sep 2024 – Ago 2025 (operacional) + 2024–2028E (financiero)<br>
+      Vertical: Fabricante calzado infantil premium · Modelo híbrido B2B/D2C<br>
+      Preparado por Suntzu Growth Advisory
+    </div>
+  </div>
+  <div class="footer-disclaimer">
+    Este documento contiene información confidencial y propietaria de Pablosky y Suntzu. Los benchmarks utilizados provienen de la metodología Suntzu para retail físico/ROPO (España/Europa) y ecommerce puro. Los valores de CAC, LTV y nuevos clientes digitales son estimaciones basadas en datos operacionales disponibles. Para cálculos definitivos se requiere acceso a CRM D2C segmentado y P&L por canal. © Suntzu 2026.
+  </div>
+</footer>
+
+<script>
+window.addEventListener('load', function() {
+
+function fmt(v) { return v >= 1000 ? '\u20ac' + (v/1000).toFixed(1) + 'M' : '\u20ac' + v; }
+function pct(v) { return v + '%'; }
+function eur(v) { return '\u20ac' + v; }
+function xr(v)  { return v + 'x'; }
+function em(v)  { return '\u20ac' + v + 'M'; }
+
+var BLUE  = 'rgba(121,152,174,0.65)';
+var PSKY  = 'rgba(232,97,26,0.78)';
+var PSKY2 = 'rgba(232,97,26,0.45)';
+var GREEN = 'rgba(45,155,110,0.72)';
+var RED   = 'rgba(254,63,60,0.62)';
+var AMBER = 'rgba(224,123,0,0.65)';
+var LBLUE = 'rgba(187,231,244,0.85)';
+
+function tipCfg() {
+  return {
+    backgroundColor: '#fff',
+    borderColor: 'rgba(121,152,174,0.25)',
+    borderWidth: 1,
+    padding: 12,
+    cornerRadius: 8,
+    titleColor: '#1a1a1a',
+    bodyColor: '#6b7a8a',
+    titleFont: { weight: '700', family: 'Host Grotesk' }
+  };
+}
+function scaleCfg() {
+  return {
+    y: {
+      grid: { color: 'rgba(121,152,174,0.1)' },
+      ticks: { color: '#6b7a8a', font: { family: 'Host Grotesk' } }
+    },
+    x: {
+      grid: { display: false },
+      ticks: { color: '#6b7a8a', font: { family: 'Host Grotesk' } }
+    }
+  };
+}
+
+Chart.defaults.color = '#6b7a8a';
+Chart.defaults.borderColor = 'rgba(121,152,174,0.12)';
+Chart.defaults.font.family = 'Host Grotesk';
+
+// ── CHART 1: Revenue + EBITDA ─────────────────────────────────
+try {
+  new Chart(document.getElementById('chartRevEbitda'), {
+    type: 'bar',
+    data: {
+      labels: ['2024', '2025E', '2026E', '2027E', '2028E'],
+      datasets: [
+        {
+          label: 'Revenue (\u20ack)',
+          data: [21287, 22327, 22457, 21491, 19129],
+          backgroundColor: BLUE,
+          order: 2,
+          yAxisID: 'y'
+        },
+        {
+          label: 'EBITDA (\u20ack)',
+          data: [2713, 2969, 2765, 1957, 383],
+          backgroundColor: PSKY,
+          order: 1,
+          yAxisID: 'y'
+        },
+        {
+          label: 'EBITDA %',
+          data: [13, 13, 12, 9, 2],
+          type: 'line',
+          yAxisID: 'y2',
+          borderColor: '#2d9b6e',
+          backgroundColor: 'transparent',
+          borderWidth: 2.5,
+          pointBackgroundColor: '#2d9b6e',
+          pointRadius: 5,
+          tension: 0.3,
+          order: 0
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'bottom', labels: { boxWidth: 12, padding: 16, font: { size: 11 } } },
+        tooltip: tipCfg()
+      },
+      scales: {
+        y: {
+          grid: { color: 'rgba(121,152,174,0.1)' },
+          ticks: { color: '#6b7a8a', callback: function(v) { return v >= 1000 ? '\u20ac' + (v/1000).toFixed(0) + 'M' : '\u20ac' + v + 'k'; } }
+        },
+        x: { grid: { display: false }, ticks: { color: '#6b7a8a' } },
+        y2: {
+          position: 'right',
+          ticks: { callback: function(v) { return v + '%'; }, color: '#2d9b6e' },
+          grid: { display: false }
+        }
+      }
+    }
+  });
+} catch(e) { console.error('Chart 1 error:', e); }
+
+// ── CHART 2: Waterfall margen 2024 ────────────────────────────
+try {
+  new Chart(document.getElementById('chartWaterfall'), {
+    type: 'bar',
+    data: {
+      labels: ['Revenue', 'COGS', 'Margen Bruto', 'Personal', 'Publicidad', 'Otros OPEX', 'EBITDA'],
+      datasets: [{
+        label: '\u20ack',
+        data: [21287, 8663, 12625, 6685, 1022, 2205, 2713],
+        backgroundColor: [BLUE, RED, GREEN, RED, AMBER, AMBER, PSKY],
+        borderRadius: 4
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: tipCfg()
+      },
+      scales: {
+        y: {
+          grid: { color: 'rgba(121,152,174,0.1)' },
+          ticks: { color: '#6b7a8a', callback: function(v) { return '\u20ac' + (v/1000).toFixed(0) + 'M'; } }
+        },
+        x: { grid: { display: false }, ticks: { color: '#6b7a8a', font: { size: 10 } } }
+      }
+    }
+  });
+} catch(e) { console.error('Chart 2 error:', e); }
+
+// ── CHART 3: Costes % ─────────────────────────────────────────
+try {
+  new Chart(document.getElementById('chartCostes'), {
+    type: 'doughnut',
+    data: {
+      labels: ['COGS 40,7%', 'Personal 31,4%', 'Publicidad 4,8%', 'Prof+OPEX prod 8,1%', 'Otro OPEX 2,3%', 'EBITDA 12,7%'],
+      datasets: [{
+        data: [40.7, 31.4, 4.8, 8.1, 2.3, 12.7],
+        backgroundColor: [RED, BLUE, AMBER, LBLUE, 'rgba(121,152,174,0.3)', PSKY],
+        borderWidth: 2,
+        borderColor: '#fff'
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'right', labels: { boxWidth: 12, padding: 10, font: { size: 10 } } },
+        tooltip: tipCfg()
+      }
+    }
+  });
+} catch(e) { console.error('Chart 3 error:', e); }
+
+// ── CHART 4: Revenue por canal ────────────────────────────────
+try {
+  new Chart(document.getElementById('chartCanales'), {
+    type: 'bar',
+    data: {
+      labels: ['GGAA', 'Otros local', 'Internacional', 'eCommerce', 'Otros Digital'],
+      datasets: [
+        { label: '2024 (\u20ack)', data: [4201, 5498, 6631, 2456, 2502], backgroundColor: BLUE, borderRadius: 3 },
+        { label: '2028E (\u20ack)', data: [4729, 1800, 5000, 3800, 3800], backgroundColor: PSKY, borderRadius: 3 }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
+        tooltip: tipCfg()
+      },
+      scales: {
+        y: { grid: { color: 'rgba(121,152,174,0.1)' }, ticks: { color: '#6b7a8a' } },
+        x: { grid: { display: false }, ticks: { color: '#6b7a8a' } }
+      }
+    }
+  });
+} catch(e) { console.error('Chart 4 error:', e); }
+
+// ── CHART 5: Tráfico y conversión ─────────────────────────────
+try {
+  new Chart(document.getElementById('chartTrafico'), {
+    type: 'bar',
+    data: {
+      labels: ['Google SEM', 'CRM/Email', 'Directo', 'Google SEO', 'Meta CPC', 'App', 'Bing CPC'],
+      datasets: [
+        {
+          label: 'Peso visitas (%)',
+          data: [42.0, 6.4, 31.6, 12.0, 2.4, 0.4, 0.5],
+          backgroundColor: BLUE,
+          yAxisID: 'y',
+          borderRadius: 3
+        },
+        {
+          label: 'Tasa Conv. (%)',
+          data: [3.8, 4.7, 3.3, 2.6, 1.3, 6.9, 5.9],
+          backgroundColor: PSKY,
+          yAxisID: 'y2',
+          borderRadius: 3
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
+        tooltip: tipCfg()
+      },
+      scales: {
+        y: {
+          grid: { color: 'rgba(121,152,174,0.1)' },
+          ticks: { color: '#6b7a8a', callback: function(v) { return v + '%'; } }
+        },
+        x: { grid: { display: false }, ticks: { color: '#6b7a8a', font: { size: 10 } } },
+        y2: {
+          position: 'right',
+          ticks: { callback: function(v) { return v + '%'; }, color: '#E8611A' },
+          grid: { display: false }
+        }
+      }
+    }
+  });
+} catch(e) { console.error('Chart 5 error:', e); }
+
+// ── CHART 6: Digital mix revenue ─────────────────────────────
+try {
+  new Chart(document.getElementById('chartDigitalMix'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Shop Online ES 2,85M', 'ECI Marketplace 1,96M', 'Shop Online EU 196k', 'Amazon MP est.170k', 'Decathlon MP est.240k'],
+      datasets: [{
+        data: [2848, 1957, 196, 170, 240],
+        backgroundColor: [PSKY, BLUE, PSKY2, LBLUE, GREEN],
+        borderWidth: 2,
+        borderColor: '#fff'
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'right', labels: { boxWidth: 12, padding: 10, font: { size: 10 } } },
+        tooltip: tipCfg()
+      }
+    }
+  });
+} catch(e) { console.error('Chart 6 error:', e); }
+
+// ── CHART 7: Categorías ECI ──────────────────────────────────
+try {
+  new Chart(document.getElementById('chartCategorias'), {
+    type: 'bar',
+    data: {
+      labels: ['Nina 43,1%', 'Unisex 22,3%', 'Nino 20,7%', 'Bebe Nina 7,6%', 'Bebe Unisex 3,1%', 'Bebe Nino 2,6%', 'Paola 1,3%'],
+      datasets: [{
+        label: 'Unidades',
+        data: [5933, 3069, 2847, 1047, 431, 359, 181],
+        backgroundColor: [PSKY, BLUE, GREEN, PSKY2, LBLUE, 'rgba(121,152,174,0.4)', AMBER],
+        borderRadius: 4
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: tipCfg()
+      },
+      scales: {
+        y: { grid: { display: false }, ticks: { color: '#6b7a8a', font: { size: 11 } } },
+        x: { grid: { color: 'rgba(121,152,174,0.1)' }, ticks: { color: '#6b7a8a' } }
+      }
+    }
+  });
+} catch(e) { console.error('Chart 7 error:', e); }
+
+// ── CHART 8: LTV vs CAC ──────────────────────────────────────
+try {
+  new Chart(document.getElementById('chartLtvCac'), {
+    type: 'bar',
+    data: {
+      labels: ['CAC Digital', 'LTV 12m', 'LTV 24m'],
+      datasets: [{
+        label: '\u20ac por cliente',
+        data: [24, 63.7, 174.5],
+        backgroundColor: [RED, BLUE, PSKY],
+        borderRadius: 6
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: tipCfg()
+      },
+      scales: {
+        y: {
+          grid: { color: 'rgba(121,152,174,0.1)' },
+          ticks: { color: '#6b7a8a', callback: function(v) { return '\u20ac' + v; } }
+        },
+        x: { grid: { display: false }, ticks: { color: '#6b7a8a' } }
+      }
+    }
+  });
+} catch(e) { console.error('Chart 8 error:', e); }
+
+// ── CHART 9: LTV:CAC ratio ───────────────────────────────────
+try {
+  new Chart(document.getElementById('chartRatio'), {
+    type: 'line',
+    data: {
+      labels: ['Mes 0 (CAC)', 'LTV 6m', 'LTV 12m', 'LTV 18m', 'LTV 24m'],
+      datasets: [
+        {
+          label: 'LTV:CAC ratio Pablosky',
+          data: [1, 1.8, 2.7, 5.1, 7.3],
+          borderColor: 'rgba(232,97,26,0.9)',
+          backgroundColor: 'rgba(232,97,26,0.1)',
+          fill: true,
+          tension: 0.4,
+          borderWidth: 3,
+          pointBackgroundColor: 'rgba(232,97,26,0.9)',
+          pointRadius: 5
+        },
+        {
+          label: 'Benchmark minimo sano 2,5x',
+          data: [2.5, 2.5, 2.5, 2.5, 2.5],
+          borderColor: 'rgba(45,155,110,0.5)',
+          borderDash: [5, 5],
+          backgroundColor: 'transparent',
+          borderWidth: 2,
+          pointRadius: 0
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
+        tooltip: tipCfg()
+      },
+      scales: {
+        y: {
+          grid: { color: 'rgba(121,152,174,0.1)' },
+          ticks: { color: '#6b7a8a', callback: function(v) { return v + 'x'; } }
+        },
+        x: { grid: { display: false }, ticks: { color: '#6b7a8a' } }
+      }
+    }
+  });
+} catch(e) { console.error('Chart 9 error:', e); }
+
+// ── CHART 10: Radar ──────────────────────────────────────────
+try {
+  new Chart(document.getElementById('chartRadar'), {
+    type: 'radar',
+    data: {
+      labels: ['Gross Margin', 'EBITDA', 'Personal%', 'Mkt Efic.', 'Rev Growth', 'Rev Online', 'LTV:CAC', 'Conversion', 'Payback'],
+      datasets: [
+        {
+          label: 'Pablosky',
+          data: [4, 3.5, 2.5, 4, 2.5, 3.5, 4.5, 3.5, 5],
+          backgroundColor: 'rgba(232,97,26,0.15)',
+          borderColor: 'rgba(232,97,26,0.8)',
+          borderWidth: 2,
+          pointBackgroundColor: 'rgba(232,97,26,0.8)',
+          pointRadius: 4
+        },
+        {
+          label: 'Benchmark sano',
+          data: [3, 3, 3, 3, 3, 3, 3, 3, 3],
+          backgroundColor: 'rgba(121,152,174,0.1)',
+          borderColor: 'rgba(121,152,174,0.5)',
+          borderWidth: 1.5,
+          pointBackgroundColor: 'rgba(121,152,174,0.5)',
+          pointRadius: 3,
+          borderDash: [4, 4]
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
+        tooltip: tipCfg()
+      },
+      scales: {
+        r: {
+          min: 0,
+          max: 5,
+          ticks: { display: false, stepSize: 1 },
+          grid: { color: 'rgba(121,152,174,0.15)' },
+          pointLabels: { font: { size: 10, weight: '600' }, color: '#6b7a8a' }
+        }
+      }
+    }
+  });
+} catch(e) { console.error('Chart 10 error:', e); }
+
+// ── CHART 11: Levers impacto ─────────────────────────────────
+try {
+  new Chart(document.getElementById('chartLevers'), {
+    type: 'bar',
+    data: {
+      labels: ['GL01 Duo Talla', 'GL02 EU Online', 'GL03 Mix Shift', 'GL04 CRM+App', 'GL05 SEM Optim.'],
+      datasets: [
+        { label: 'Conservador (k\u20ac)', data: [180, 304, 640, 205, 105], backgroundColor: PSKY, borderRadius: 4 },
+        { label: 'Optimista (k\u20ac)',   data: [310, 804, 1500, 420, 280], backgroundColor: BLUE, borderRadius: 4 }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
+        tooltip: tipCfg()
+      },
+      scales: {
+        y: { grid: { color: 'rgba(121,152,174,0.1)' }, ticks: { color: '#6b7a8a' } },
+        x: { grid: { display: false }, ticks: { color: '#6b7a8a' } }
+      }
+    }
+  });
+} catch(e) { console.error('Chart 11 error:', e); }
+
+// ── CHART 12: Proyección con/sin levers ──────────────────────
+try {
+  new Chart(document.getElementById('chartProj'), {
+    type: 'line',
+    data: {
+      labels: ['2024', '2025E', '2026E', '2027E', '2028E'],
+      datasets: [
+        {
+          label: 'Sin levers (base)',
+          data: [21.3, 22.3, 22.5, 21.5, 19.1],
+          borderColor: 'rgba(254,63,60,0.7)',
+          backgroundColor: 'rgba(254,63,60,0.05)',
+          fill: true, tension: 0.3, borderWidth: 2,
+          borderDash: [5, 5],
+          pointBackgroundColor: 'rgba(254,63,60,0.7)',
+          pointRadius: 4
+        },
+        {
+          label: 'Con levers conservador',
+          data: [21.3, 23.0, 24.2, 24.0, 22.5],
+          borderColor: 'rgba(232,97,26,0.9)',
+          backgroundColor: 'rgba(232,97,26,0.08)',
+          fill: true, tension: 0.3, borderWidth: 3,
+          pointBackgroundColor: 'rgba(232,97,26,0.9)',
+          pointRadius: 4
+        },
+        {
+          label: 'Con levers optimista',
+          data: [21.3, 23.7, 25.8, 26.5, 25.8],
+          borderColor: 'rgba(45,155,110,0.7)',
+          backgroundColor: 'rgba(45,155,110,0.05)',
+          fill: true, tension: 0.3, borderWidth: 2,
+          pointBackgroundColor: 'rgba(45,155,110,0.7)',
+          pointRadius: 4
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
+        tooltip: tipCfg()
+      },
+      scales: {
+        y: {
+          grid: { color: 'rgba(121,152,174,0.1)' },
+          ticks: { color: '#6b7a8a', callback: function(v) { return '\u20ac' + v + 'M'; } }
+        },
+        x: { grid: { display: false }, ticks: { color: '#6b7a8a' } }
+      }
+    }
+  });
+} catch(e) { console.error('Chart 12 error:', e); }
+
+console.log('All Pablosky charts initialized.');
+}); // end window.load
+</script>
+</body>
+</html>
