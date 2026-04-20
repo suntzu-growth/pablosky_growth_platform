@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aceleración Estratégica — Pablosky 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#f3f3f3; --white:#ffffff;
+  --blue:#7998ae; --lblue:#bbe7f4;
+  --psky:#E8611A; --psky-light:#FEF0E8; --psky-mid:#F5A058;
+  --green:#2d9b6e; --amber:#e07b00; --red:#fe3f3c;
+  --text:#1a1a1a; --muted:#6b7a8a;
+  --border:rgba(121,152,174,0.2); --borderB:rgba(121,152,174,0.4);
+}
+body{font-family:'Host Grotesk',sans-serif;background:var(--bg);color:var(--text);font-size:14px;}
+
+/* ── NAVIGATION ─────────────────── */
+nav{background:var(--white);border-bottom:1px solid var(--border);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:100;}
+.nav-logos{display:flex;align-items:center;gap:16px;}
+.logo-suntzu{font-weight:800;font-size:16px;letter-spacing:-0.5px;color:var(--text);}
+.logo-suntzu span{color:var(--psky);}
+.logo-divider{width:1px;height:24px;background:var(--borderB);}
+.logo-pablosky{font-weight:800;font-size:18px;letter-spacing:1px;color:var(--psky);}
+.nav-meta{font-size:12px;color:var(--muted);}
+
+/* ── COVER ──────────────────────── */
+.cover{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;}
+.cover-left{background:var(--bg);padding:80px 60px;display:flex;flex-direction:column;justify-content:center;}
+.cover-right{background:linear-gradient(135deg,var(--psky-light) 0%,#fde8d4 100%);padding:80px 60px;display:flex;flex-direction:column;justify-content:center;}
+.cover-eyebrow{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:20px;}
+.cover-title{font-size:60px;font-weight:800;line-height:1.0;color:var(--blue);margin-bottom:32px;}
+.cover-title span{color:var(--psky);}
+.cover-desc{font-size:16px;line-height:1.6;color:var(--muted);max-width:440px;margin-bottom:40px;}
+.cover-logos-box{display:flex;align-items:center;gap:20px;padding:20px 0;border-top:1px solid var(--borderB);}
+.c-logo-s{font-weight:800;font-size:22px;color:var(--psky);}
+.c-div{width:1px;height:32px;background:var(--borderB);}
+.c-logo-p{font-weight:800;font-size:26px;letter-spacing:1.5px;color:var(--psky);}
+.hero-kpis{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.hkpi{background:var(--white);border-radius:12px;padding:22px;border-left:3px solid var(--psky);}
+.hkpi.blue{border-left-color:var(--blue);}
+.hkpi.green{border-left-color:var(--green);}
+.hkpi.amber{border-left-color:var(--amber);}
+.hkpi-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.hkpi-val{font-size:28px;font-weight:800;color:var(--text);line-height:1;}
+.hkpi-sub{font-size:11px;color:var(--muted);margin-top:6px;}
+.hkpi-badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;margin-top:8px;}
+.bb{background:rgba(45,155,110,0.12);color:var(--green);}
+.br{background:rgba(254,63,60,0.12);color:var(--red);}
+.by{background:rgba(224,123,0,0.12);color:var(--amber);}
+.bg{background:rgba(121,152,174,0.12);color:var(--blue);}
+
+/* ── SECTIONS ───────────────────── */
+section{padding:80px 60px;border-bottom:1px solid var(--border);}
+section:nth-child(odd){background:var(--white);}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--psky);margin-bottom:12px;}
+.sec-title{font-size:36px;font-weight:800;color:var(--text);margin-bottom:8px;line-height:1.1;}
+.sec-desc{font-size:15px;color:var(--muted);max-width:820px;margin-bottom:48px;line-height:1.6;}
+
+/* ── METHOD CARDS ───────────────── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:28px;}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:28px;}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:28px;}
+.method-card{background:var(--white);border-radius:12px;padding:24px;border:1px solid var(--border);border-top:3px solid var(--psky);}
+.method-card.blue{border-top-color:var(--blue);}
+.method-card.green{border-top-color:var(--green);}
+.method-card.amber{border-top-color:var(--amber);}
+.method-num{font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--psky);margin-bottom:10px;}
+.method-card.blue .method-num{color:var(--blue);}
+.method-card.green .method-num{color:var(--green);}
+.method-card.amber .method-num{color:var(--amber);}
+.method-title{font-size:16px;font-weight:700;margin-bottom:10px;}
+.method-body{font-size:12.5px;color:var(--muted);line-height:1.6;}
+
+/* ── MATRIX TABLE ───────────────── */
+.matrix-wrap{background:var(--white);border-radius:12px;border:1px solid var(--border);padding:24px;margin-bottom:28px;overflow:hidden;}
+.matrix-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--border);}
+.matrix-title{font-size:18px;font-weight:800;}
+.matrix-title .matrix-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:1px;padding:3px 10px;border-radius:20px;margin-left:10px;vertical-align:middle;}
+.tag-mkt{background:rgba(232,97,26,0.12);color:var(--psky);}
+.tag-sales{background:rgba(121,152,174,0.15);color:var(--blue);}
+.tag-ops{background:rgba(224,123,0,0.12);color:var(--amber);}
+.tag-cs{background:rgba(45,155,110,0.12);color:var(--green);}
+.matrix-sub{font-size:12px;color:var(--muted);max-width:620px;}
+
+.mtbl{width:100%;border-collapse:collapse;font-size:12.5px;table-layout:fixed;}
+.mtbl th{text-align:left;padding:10px 12px;background:var(--bg);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);}
+.mtbl th.num{text-align:center;}
+.mtbl td{padding:12px;border-bottom:1px solid var(--border);vertical-align:top;}
+.mtbl td.num{text-align:center;font-weight:700;}
+.mtbl tr:last-child td{border-bottom:none;}
+.mtbl tr.top-row td{background:rgba(232,97,26,0.04);}
+.mtbl .ch-name{font-weight:700;color:var(--text);font-size:13px;margin-bottom:4px;}
+.mtbl .ch-desc{font-size:11.5px;color:var(--muted);line-height:1.5;}
+.mtbl .dim-pill{display:inline-block;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap;}
+.dim-prod{background:rgba(121,152,174,0.12);color:var(--blue);}
+.dim-cost{background:rgba(224,123,0,0.12);color:var(--amber);}
+.dim-rev{background:rgba(45,155,110,0.12);color:var(--green);}
+.dim-new{background:rgba(232,97,26,0.12);color:var(--psky);}
+.kr-tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;background:rgba(254,63,60,0.08);color:var(--red);margin-right:4px;margin-bottom:3px;border:1px solid rgba(254,63,60,0.2);}
+.score-cell{font-size:15px;font-weight:800;color:var(--psky);}
+.star-cell{color:var(--psky);font-weight:800;font-size:10px;letter-spacing:1px;margin-top:2px;}
+
+/* ── GLOBAL MATRIX ──────────────── */
+.global-wrap{background:linear-gradient(135deg,rgba(232,97,26,0.05) 0%,rgba(121,152,174,0.05) 100%);border:1px solid var(--border);border-radius:14px;padding:28px;margin-bottom:32px;}
+.global-title{font-size:22px;font-weight:800;margin-bottom:6px;}
+.global-sub{font-size:13px;color:var(--muted);margin-bottom:20px;max-width:720px;line-height:1.6;}
+
+/* ── DEEP DIVE ──────────────────── */
+.dd-block{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:0;margin-bottom:28px;overflow:hidden;}
+.dd-header{background:linear-gradient(135deg,var(--psky) 0%,var(--psky-mid) 100%);color:var(--white);padding:28px 32px;}
+.dd-header.blue{background:linear-gradient(135deg,var(--blue) 0%,#9db5c8 100%);}
+.dd-header.green{background:linear-gradient(135deg,var(--green) 0%,#4ebc8b 100%);}
+.dd-num{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;opacity:0.85;margin-bottom:8px;}
+.dd-title{font-size:26px;font-weight:800;line-height:1.2;margin-bottom:10px;}
+.dd-area{font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;opacity:0.85;}
+.dd-area-score{display:flex;gap:20px;margin-top:14px;font-size:11px;}
+.dd-area-score span{padding:4px 10px;background:rgba(255,255,255,0.2);border-radius:6px;font-weight:700;}
+
+.dd-body{padding:28px 32px;}
+.dd-section-title{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--psky);margin-bottom:10px;}
+.dd-block.blue .dd-section-title{color:var(--blue);}
+.dd-block.green .dd-section-title{color:var(--green);}
+.dd-text{font-size:13px;color:var(--text);line-height:1.7;margin-bottom:24px;}
+.dd-text strong{color:var(--text);}
+
+.dd-roi-box{background:var(--psky-light);border-left:4px solid var(--psky);border-radius:10px;padding:20px 22px;margin-bottom:24px;}
+.dd-block.blue .dd-roi-box{background:rgba(121,152,174,0.08);border-left-color:var(--blue);}
+.dd-block.green .dd-roi-box{background:rgba(45,155,110,0.08);border-left-color:var(--green);}
+.dd-roi-tag{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--psky);margin-bottom:8px;}
+.dd-block.blue .dd-roi-tag{color:var(--blue);}
+.dd-block.green .dd-roi-tag{color:var(--green);}
+.dd-roi-text{font-size:13.5px;line-height:1.7;color:var(--text);}
+
+.dd-process{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px;}
+.proc-card{background:var(--bg);border-radius:10px;padding:20px;border-top:3px solid var(--psky);}
+.dd-block.blue .proc-card{border-top-color:var(--blue);}
+.dd-block.green .proc-card{border-top-color:var(--green);}
+.proc-step{font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--psky);margin-bottom:6px;}
+.dd-block.blue .proc-step{color:var(--blue);}
+.dd-block.green .proc-step{color:var(--green);}
+.proc-title{font-size:14px;font-weight:700;margin-bottom:10px;}
+.proc-body{font-size:12px;color:var(--muted);line-height:1.55;}
+
+.kpi-table{width:100%;border-collapse:collapse;font-size:12.5px;margin-bottom:20px;}
+.kpi-table th{padding:10px 14px;background:var(--blue);color:white;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-align:left;}
+.dd-block.blue .kpi-table th{background:var(--blue);}
+.dd-block.green .kpi-table th{background:var(--green);}
+.kpi-table td{padding:10px 14px;border-bottom:1px solid var(--border);}
+.kpi-table tr:nth-child(even) td{background:rgba(121,152,174,0.04);}
+.kpi-table .baseline{color:var(--muted);font-weight:600;}
+.kpi-table .target{color:var(--psky);font-weight:700;}
+
+.validacion-box{background:rgba(121,152,174,0.06);border:1px solid var(--border);border-radius:10px;padding:20px;font-size:13px;color:var(--muted);line-height:1.7;}
+.validacion-box strong{color:var(--text);}
+
+/* ── LEGEND ─────────────────────── */
+.kr-legend{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:24px;}
+.kr-legend-title{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+.kr-legend-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;font-size:12px;}
+.kr-item{display:flex;gap:10px;align-items:flex-start;}
+.kr-item .kr-id{font-weight:800;color:var(--red);min-width:38px;font-size:11px;background:rgba(254,63,60,0.08);padding:3px 7px;border-radius:4px;border:1px solid rgba(254,63,60,0.2);text-align:center;}
+.kr-item .kr-text{color:var(--muted);line-height:1.5;}
+.kr-item .kr-text strong{color:var(--text);}
+
+/* ── SUMMARY CARDS ──────────────── */
+.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.summary-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:24px;border-top:4px solid var(--psky);}
+.summary-card.blue{border-top-color:var(--blue);}
+.summary-card.green{border-top-color:var(--green);}
+.summary-rank{font-size:38px;font-weight:800;color:var(--psky);line-height:1;}
+.summary-card.blue .summary-rank{color:var(--blue);}
+.summary-card.green .summary-rank{color:var(--green);}
+.summary-area{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:10px 0 6px;}
+.summary-title{font-size:15px;font-weight:700;margin-bottom:10px;line-height:1.3;}
+.summary-score-row{display:flex;gap:16px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);}
+.summary-score-row strong{color:var(--text);font-size:14px;}
+
+/* ── FOOTER ─────────────────────── */
+footer{background:var(--blue);color:white;padding:48px 60px;}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;}
+.footer-logos{display:flex;align-items:center;gap:20px;}
+.f-logo-s{font-weight:800;font-size:18px;color:white;}
+.f-logo-s span{color:rgba(255,255,255,0.5);}
+.f-logo-div{width:1px;height:28px;background:rgba(255,255,255,0.3);}
+.f-logo-p{font-weight:800;font-size:22px;letter-spacing:1px;color:white;opacity:0.9;}
+.footer-meta{font-size:12px;color:rgba(255,255,255,0.6);text-align:right;line-height:1.8;}
+.footer-disclaimer{font-size:11px;color:rgba(255,255,255,0.4);padding-top:24px;border-top:1px solid rgba(255,255,255,0.1);}
+
+/* ── RESPONSIVE ─────────────────── */
+@media(max-width:900px){
+  .cover{grid-template-columns:1fr;}
+  .cover-right{display:none;}
+  .g4,.g3{grid-template-columns:1fr 1fr;}
+  .dd-process,.summary-grid{grid-template-columns:1fr;}
+  .kr-legend-grid{grid-template-columns:1fr;}
+  section{padding:48px 24px;}
+  .cover-left{padding:48px 24px;}
+  .mtbl{font-size:11px;}
+  .mtbl td{padding:8px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logos">
+    <div class="logo-suntzu">SUN<span>TZU</span></div>
+    <div class="logo-divider"></div>
+    <div class="logo-pablosky">PABLOSKY</div>
+  </div>
+  <div class="nav-meta">Aceleración Estratégica &nbsp;·&nbsp; Q2 2026 &nbsp;·&nbsp; Confidencial</div>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- COVER -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-left">
+    <div class="cover-eyebrow">Suntzu Growth Advisory · 2026</div>
+    <div class="cover-title">ACELERACIÓN /<br>ESTRATÉGICA<span>.</span></div>
+    <div class="cover-desc">20 retos de IA agéntica priorizados por impacto económico real, alineados con los KRs de Pablosky y el shift de mix B2B→D2C. Tres business cases profundizados. Ninguna tactica vanity — solo palancas que mueven EBITDA.</div>
+    <div class="cover-logos-box">
+      <div class="c-logo-s">SUNTZU</div>
+      <div class="c-div"></div>
+      <div class="c-logo-p">PABLOSKY</div>
+    </div>
+  </div>
+  <div class="cover-right">
+    <div style="margin-bottom:24px;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:20px;">MAPA DE ACELERACIÓN</div>
+      <div class="hero-kpis">
+        <div class="hkpi">
+          <div class="hkpi-label">Challenges detectados</div>
+          <div class="hkpi-val">20</div>
+          <div class="hkpi-sub">5 por área de growth</div>
+          <span class="hkpi-badge bb">Priorizados I×E×C</span>
+        </div>
+        <div class="hkpi blue">
+          <div class="hkpi-label">Deep Dives</div>
+          <div class="hkpi-val">3</div>
+          <div class="hkpi-sub">Top score global</div>
+          <span class="hkpi-badge bg">Casos de negocio</span>
+        </div>
+        <div class="hkpi green">
+          <div class="hkpi-label">Impacto EBITDA Top 3</div>
+          <div class="hkpi-val">+€1,1M</div>
+          <div class="hkpi-sub">Escenario conservador año 1</div>
+          <span class="hkpi-badge bb">ROI medio &gt;500%</span>
+        </div>
+        <div class="hkpi amber">
+          <div class="hkpi-label">Payback medio Top 3</div>
+          <div class="hkpi-val">2-4m</div>
+          <div class="hkpi-sub">Quick wins estratégicos</div>
+          <span class="hkpi-badge by">Validación 8 sem</span>
+        </div>
+        <div class="hkpi" style="border-left-color:var(--psky);">
+          <div class="hkpi-label">KRs impactados</div>
+          <div class="hkpi-val">7 / 7</div>
+          <div class="hkpi-sub">Cobertura total OKR Plan</div>
+          <span class="hkpi-badge" style="background:rgba(232,97,26,0.12);color:var(--psky);">Alineado North Star</span>
+        </div>
+        <div class="hkpi">
+          <div class="hkpi-label">Áreas Growth</div>
+          <div class="hkpi-val">4</div>
+          <div class="hkpi-sub">Marketing · Sales · Ops · CX</div>
+          <span class="hkpi-badge bg">Scope integral</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- S01 — METODOLOGÍA -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section id="s01">
+  <div class="eyebrow">S01 — Metodología</div>
+  <div class="sec-title">Cómo hemos priorizado los 20 challenges</div>
+  <div class="sec-desc">Partimos del AS-IS económico y de cliente de Pablosky (Unit Economics Report Sep24–Ago25 + Plan SKY) y cruzamos los hallazgos con los 7 KRs 2026. Cada challenge se evalúa con la fórmula <strong>Score = Impact × Ease × Confidence</strong> y se asocia a la dimensión de valor IA y a los KRs afectados. Los 3 challenges con mayor score global pasan a Deep Dive.</div>
+
+  <div class="g4">
+    <div class="method-card">
+      <div class="method-num">01 · IMPACT</div>
+      <div class="method-title">Impacto en EBITDA</div>
+      <div class="method-body">Mueve ingresos core o costes estructurales (10) vs mejora operativa menor (1). No medimos impacto departamental — medimos impacto P&amp;L.</div>
+    </div>
+    <div class="method-card blue">
+      <div class="method-num">02 · EASE</div>
+      <div class="method-title">Facilidad técnica + organizativa</div>
+      <div class="method-body">Automatización sobre proceso digitalizado (10) vs cambio organizativo profundo + integraciones complejas (1).</div>
+    </div>
+    <div class="method-card amber">
+      <div class="method-num">03 · CONFIDENCE</div>
+      <div class="method-title">Honestidad del análisis</div>
+      <div class="method-body">Qué tan seguros estamos de que Impact y Ease son reales, no suposiciones. Conservador por defecto (≤7) salvo datos propios del cliente.</div>
+    </div>
+    <div class="method-card green">
+      <div class="method-num">04 · DIMENSIÓN IA + KR</div>
+      <div class="method-title">Alineación estratégica</div>
+      <div class="method-body">Cada reto se etiqueta con la dimensión de valor (Productividad, Coste, Ingresos, Nueva Línea) y los KRs que activa. Solo lo que mueve KR pasa corte.</div>
+    </div>
+  </div>
+
+  <!-- Leyenda KRs -->
+  <div class="kr-legend">
+    <div class="kr-legend-title">Leyenda · KRs 2026 impactados</div>
+    <div class="kr-legend-grid">
+      <div class="kr-item"><span class="kr-id">KR1</span><span class="kr-text"><strong>Revenue D2C Digital</strong> · €5,0M → €8,5M (horizonte 2027E)</span></div>
+      <div class="kr-item"><span class="kr-id">KR2</span><span class="kr-text"><strong>No-recompra post-devolución</strong> · 48,8% → &lt;25%</span></div>
+      <div class="kr-item"><span class="kr-id">KR3</span><span class="kr-text"><strong>LTV:CAC 12m D2C</strong> · 2,7x → 4,0x+</span></div>
+      <div class="kr-item"><span class="kr-id">KR4</span><span class="kr-text"><strong>Shift de mix D2C</strong> · 23% → 33% en 3 años (+3pp/año)</span></div>
+      <div class="kr-item"><span class="kr-id">KR5</span><span class="kr-text"><strong>Shop Online EU</strong> · €196k → €1,0M</span></div>
+      <div class="kr-item"><span class="kr-id">KR6</span><span class="kr-text"><strong>EBITDA % revenue</strong> · 13% → 15% (estabilización)</span></div>
+      <div class="kr-item"><span class="kr-id">KR7</span><span class="kr-text"><strong>Personnel % revenue</strong> · 31,4% → 28% (productividad)</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- S02 — MATRIZ MARKETING -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section id="s02" style="background:var(--bg);">
+  <div class="eyebrow">S02 — Matriz por área</div>
+  <div class="sec-title">20 Challenges Estratégicos · 5 por área de Growth</div>
+  <div class="sec-desc">Cada challenge es un sistema agéntico accionable, no una tactica vanity. Hemos descartado cualquier iniciativa cuyo impacto sea solo mejora de métrica vanity (tráfico, followers, impresiones) sin efecto directo en KR. Las filas están ordenadas por Score decreciente dentro de cada área.</div>
+
+  <!-- MATRIZ MARKETING -->
+  <div class="matrix-wrap">
+    <div class="matrix-header">
+      <div>
+        <div class="matrix-title">Marketing <span class="matrix-tag tag-mkt">5 retos</span></div>
+        <div class="matrix-sub">Foco: eficiencia del embudo D2C, escalado EU y retención CRM/App (canales subinvertidos con mayor CR del portfolio).</div>
+      </div>
+    </div>
+    <table class="mtbl">
+      <thead>
+        <tr>
+          <th style="width:5%;" class="num">#</th>
+          <th style="width:30%;">Challenge</th>
+          <th style="width:14%;">Dimensión IA</th>
+          <th style="width:16%;">KR(s) afectados</th>
+          <th style="width:7%;" class="num">I</th>
+          <th style="width:7%;" class="num">E</th>
+          <th style="width:7%;" class="num">C</th>
+          <th style="width:14%;" class="num">Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="top-row">
+          <td class="num">M1</td>
+          <td>
+            <div class="ch-name">🏷️ Recomendador de talla personalizado con IA (fit-predictor)</div>
+            <div class="ch-desc">Agente que predice talla óptima por modelo/horma usando histórico de cliente + morfometría interna. Activa "Dos Tallas" dinámicamente. Integrado en PDP, checkout y email post-devolución.</div>
+          </td>
+          <td><span class="dim-pill dim-prod">Productividad</span></td>
+          <td><span class="kr-tag">KR2</span><span class="kr-tag">KR3</span><span class="kr-tag">KR4</span></td>
+          <td class="num">9</td>
+          <td class="num">8</td>
+          <td class="num">7</td>
+          <td class="num"><div class="score-cell">504</div><div class="star-cell">★ TOP 1</div></td>
+        </tr>
+        <tr>
+          <td class="num">M2</td>
+          <td>
+            <div class="ch-name">📧 Marketing automation CRM con personalización IA generativa</div>
+            <div class="ch-desc">Flows automatizados por cohorte (post-compra, anniversary del niño, reactivación). Copy y creatividad generadas por agente basadas en comportamiento. Canal Newsletter hoy 4,7% CR con solo 6,4% del tráfico.</div>
+          </td>
+          <td><span class="dim-pill dim-rev">Mejora Ingresos</span></td>
+          <td><span class="kr-tag">KR3</span><span class="kr-tag">KR4</span></td>
+          <td class="num">8</td>
+          <td class="num">9</td>
+          <td class="num">6</td>
+          <td class="num"><div class="score-cell">432</div></td>
+        </tr>
+        <tr>
+          <td class="num">M3</td>
+          <td>
+            <div class="ch-name">🌍 SEO/GEO multilingüe + localización de contenido con IA para EU</div>
+            <div class="ch-desc">Agente que genera fichas de producto, landings y contenido editorial localizado por mercado (ITA, PRT, UAE, FR, DE) para escalar Shop Online EU de €196k a €1M.</div>
+          </td>
+          <td><span class="dim-pill dim-rev">Mejora Ingresos</span></td>
+          <td><span class="kr-tag">KR5</span><span class="kr-tag">KR1</span></td>
+          <td class="num">7</td>
+          <td class="num">7</td>
+          <td class="num">5</td>
+          <td class="num"><div class="score-cell">245</div></td>
+        </tr>
+        <tr>
+          <td class="num">M4</td>
+          <td>
+            <div class="ch-name">🎯 Smart bidding con Predictive CLV y exclusiones IA en paid</div>
+            <div class="ch-desc">Señales de LTV por cohorte alimentan Performance Max + Meta. Exclusión automática de audiencias con CLV bajo. Oportunidad: Bing CPC tiene 5,9% CR pero solo 0,5% del gasto.</div>
+          </td>
+          <td><span class="dim-pill dim-cost">Reducción Costes</span></td>
+          <td><span class="kr-tag">KR3</span><span class="kr-tag">KR1</span></td>
+          <td class="num">6</td>
+          <td class="num">8</td>
+          <td class="num">6</td>
+          <td class="num"><div class="score-cell">288</div></td>
+        </tr>
+        <tr>
+          <td class="num">M5</td>
+          <td>
+            <div class="ch-name">📊 Attribution modeling unificado cross-market con IA</div>
+            <div class="ch-desc">Modelo de atribución multi-touch que reconcilia paid + orgánico + offline (punto de venta franquicia) para asignar CAC real por canal. Condición para escalar EU con datos, no intuición.</div>
+          </td>
+          <td><span class="dim-pill dim-prod">Productividad</span></td>
+          <td><span class="kr-tag">KR1</span><span class="kr-tag">KR5</span></td>
+          <td class="num">5</td>
+          <td class="num">5</td>
+          <td class="num">4</td>
+          <td class="num"><div class="score-cell">100</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- MATRIZ SALES -->
+  <div class="matrix-wrap">
+    <div class="matrix-header">
+      <div>
+        <div class="matrix-title">Sales <span class="matrix-tag tag-sales">5 retos</span></div>
+        <div class="matrix-sub">Foco: rescatar rentabilidad del 90% B2B (hoy a 0,9x–2,5x escandallo) y activar pricing inteligente en D2C y nuevos mercados internacionales.</div>
+      </div>
+    </div>
+    <table class="mtbl">
+      <thead>
+        <tr>
+          <th style="width:5%;" class="num">#</th>
+          <th style="width:30%;">Challenge</th>
+          <th style="width:14%;">Dimensión IA</th>
+          <th style="width:16%;">KR(s) afectados</th>
+          <th style="width:7%;" class="num">I</th>
+          <th style="width:7%;" class="num">E</th>
+          <th style="width:7%;" class="num">C</th>
+          <th style="width:14%;" class="num">Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="top-row">
+          <td class="num">S1</td>
+          <td>
+            <div class="ch-name">💼 Agente IA de rentabilidad y renegociación B2B Top 5 (ECI, Merkal, Amazon, RNA, Fawatem)</div>
+            <div class="ch-desc">Dossier trimestral automatizado de margen real por cuenta + simulaciones de renegociación. ECI opera hoy a 0,9x escandallo — cada +1pp de mix hacia canal más rentable = +€213k EBITDA.</div>
+          </td>
+          <td><span class="dim-pill dim-rev">Mejora Ingresos</span></td>
+          <td><span class="kr-tag">KR4</span><span class="kr-tag">KR6</span></td>
+          <td class="num">9</td>
+          <td class="num">7</td>
+          <td class="num">7</td>
+          <td class="num"><div class="score-cell">441</div><div class="star-cell">★ TOP 3</div></td>
+        </tr>
+        <tr>
+          <td class="num">S2</td>
+          <td>
+            <div class="ch-name">💶 Pricing dinámico D2C por modelo / temporada / elasticidad</div>
+            <div class="ch-desc">Motor de precios que ajusta por señales de demanda, stock y margen. Soporta la tabla de sensibilidad AOV–LTV:CAC del Unit Economics (de €60 a €70 AOV → LTV:CAC 7,3x a 9,5x).</div>
+          </td>
+          <td><span class="dim-pill dim-rev">Mejora Ingresos</span></td>
+          <td><span class="kr-tag">KR1</span><span class="kr-tag">KR3</span></td>
+          <td class="num">7</td>
+          <td class="num">6</td>
+          <td class="num">5</td>
+          <td class="num"><div class="score-cell">210</div></td>
+        </tr>
+        <tr>
+          <td class="num">S3</td>
+          <td>
+            <div class="ch-name">📈 Forecasting de demanda integrado B2B + D2C</div>
+            <div class="ch-desc">Modelo unificado que anticipa volumen por canal con señales propias (pedidos recurrentes ECI, stock marketplaces, pipeline internacional). Reduce overstock → libera el canal liquidación (hoy 5% volumen a 0,5x).</div>
+          </td>
+          <td><span class="dim-pill dim-cost">Reducción Costes</span></td>
+          <td><span class="kr-tag">KR6</span><span class="kr-tag">KR1</span></td>
+          <td class="num">7</td>
+          <td class="num">6</td>
+          <td class="num">5</td>
+          <td class="num"><div class="score-cell">210</div></td>
+        </tr>
+        <tr>
+          <td class="num">S4</td>
+          <td>
+            <div class="ch-name">🌐 Agente de prospección y activación de retailers internacionales</div>
+            <div class="ch-desc">Identificación automática de boutiques premium infantiles en EU/UAE + sequences de outreach personalizado + scoring de potencial. Soporta expansión internacional más allá de los canales históricos.</div>
+          </td>
+          <td><span class="dim-pill dim-new">Nueva Línea</span></td>
+          <td><span class="kr-tag">KR5</span><span class="kr-tag">KR1</span></td>
+          <td class="num">6</td>
+          <td class="num">7</td>
+          <td class="num">4</td>
+          <td class="num"><div class="score-cell">168</div></td>
+        </tr>
+        <tr>
+          <td class="num">S5</td>
+          <td>
+            <div class="ch-name">🧾 Portal B2B self-service IA para pedidos recurrentes</div>
+            <div class="ch-desc">Agente que permite a partners B2B reordenar, consultar stock y tracking sin tocar al agente comercial. Libera capacidad de comerciales senior para renegociación y prospección.</div>
+          </td>
+          <td><span class="dim-pill dim-prod">Productividad</span></td>
+          <td><span class="kr-tag">KR7</span><span class="kr-tag">KR6</span></td>
+          <td class="num">5</td>
+          <td class="num">6</td>
+          <td class="num">4</td>
+          <td class="num"><div class="score-cell">120</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- MATRIZ OPERATIONS -->
+  <div class="matrix-wrap">
+    <div class="matrix-header">
+      <div>
+        <div class="matrix-title">Operations <span class="matrix-tag tag-ops">5 retos</span></div>
+        <div class="matrix-sub">Foco: dar visibilidad de rentabilidad por canal, reducir coste logístico de devoluciones y estabilizar productividad de la fábrica Made in Spain.</div>
+      </div>
+    </div>
+    <table class="mtbl">
+      <thead>
+        <tr>
+          <th style="width:5%;" class="num">#</th>
+          <th style="width:30%;">Challenge</th>
+          <th style="width:14%;">Dimensión IA</th>
+          <th style="width:16%;">KR(s) afectados</th>
+          <th style="width:7%;" class="num">I</th>
+          <th style="width:7%;" class="num">E</th>
+          <th style="width:7%;" class="num">C</th>
+          <th style="width:14%;" class="num">Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="top-row">
+          <td class="num">O1</td>
+          <td>
+            <div class="ch-name">📊 Reporting financiero automatizado por canal / cuenta / modelo</div>
+            <div class="ch-desc">Agente que construye cada mes la P&amp;L real por canal (no solo agregada) y detecta desviaciones vs plan. Condición necesaria para saber dónde se gana y dónde se pierde margen realmente.</div>
+          </td>
+          <td><span class="dim-pill dim-prod">Productividad</span></td>
+          <td><span class="kr-tag">KR6</span><span class="kr-tag">KR4</span></td>
+          <td class="num">7</td>
+          <td class="num">9</td>
+          <td class="num">6</td>
+          <td class="num"><div class="score-cell">378</div></td>
+        </tr>
+        <tr>
+          <td class="num">O2</td>
+          <td>
+            <div class="ch-name">🏭 Predicción de demanda + optimización mix producción Made in Spain</div>
+            <div class="ch-desc">Agente que optimiza el plan de producción semanal anticipando la demanda D2C vs B2B, priorizando SKUs de mayor margen neto. Reduce stock inmovilizado y dependencia de liquidación.</div>
+          </td>
+          <td><span class="dim-pill dim-cost">Reducción Costes</span></td>
+          <td><span class="kr-tag">KR6</span><span class="kr-tag">KR1</span></td>
+          <td class="num">8</td>
+          <td class="num">5</td>
+          <td class="num">5</td>
+          <td class="num"><div class="score-cell">200</div></td>
+        </tr>
+        <tr>
+          <td class="num">O3</td>
+          <td>
+            <div class="ch-name">📦 Agente de logística inversa y análisis de patrones de devolución</div>
+            <div class="ch-desc">Detección automática de modelos con tasas anómalas de devolución por talla/horma → retroalimenta producto y marketing. 17.155 casos/año = dataset natural para identificar defectos estructurales de ajuste.</div>
+          </td>
+          <td><span class="dim-pill dim-cost">Reducción Costes</span></td>
+          <td><span class="kr-tag">KR2</span><span class="kr-tag">KR6</span></td>
+          <td class="num">6</td>
+          <td class="num">7</td>
+          <td class="num">6</td>
+          <td class="num"><div class="score-cell">252</div></td>
+        </tr>
+        <tr>
+          <td class="num">O4</td>
+          <td>
+            <div class="ch-name">⚙️ Monitorización productividad fábrica con IA (predictive quality)</div>
+            <div class="ch-desc">Visión artificial en línea de producción + analítica predictiva de defectos. Alta complejidad organizativa: absentismo y conflictividad sindical identificados en Plan SKY — requiere acompañamiento de cambio.</div>
+          </td>
+          <td><span class="dim-pill dim-cost">Reducción Costes</span></td>
+          <td><span class="kr-tag">KR7</span><span class="kr-tag">KR6</span></td>
+          <td class="num">8</td>
+          <td class="num">3</td>
+          <td class="num">3</td>
+          <td class="num"><div class="score-cell">72</div></td>
+        </tr>
+        <tr>
+          <td class="num">O5</td>
+          <td>
+            <div class="ch-name">🧾 Agente de compliance documental y facturación B2B</div>
+            <div class="ch-desc">Automatiza generación de albaranes, gestión de condiciones especiales por cliente B2B y conciliación de cobros/comisiones de agentes. Libera horas de administración comercial.</div>
+          </td>
+          <td><span class="dim-pill dim-prod">Productividad</span></td>
+          <td><span class="kr-tag">KR7</span><span class="kr-tag">KR4</span></td>
+          <td class="num">5</td>
+          <td class="num">7</td>
+          <td class="num">5</td>
+          <td class="num"><div class="score-cell">175</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- MATRIZ CUSTOMER SUCCESS -->
+  <div class="matrix-wrap">
+    <div class="matrix-header">
+      <div>
+        <div class="matrix-title">Customer Success <span class="matrix-tag tag-cs">5 retos</span></div>
+        <div class="matrix-sub">Foco: proteger LTV en un negocio donde el 48,8% de los devolutores no vuelven, y activar la frecuencia natural del calzado infantil (talla crece cada 4-6 meses).</div>
+      </div>
+    </div>
+    <table class="mtbl">
+      <thead>
+        <tr>
+          <th style="width:5%;" class="num">#</th>
+          <th style="width:30%;">Challenge</th>
+          <th style="width:14%;">Dimensión IA</th>
+          <th style="width:16%;">KR(s) afectados</th>
+          <th style="width:7%;" class="num">I</th>
+          <th style="width:7%;" class="num">E</th>
+          <th style="width:7%;" class="num">C</th>
+          <th style="width:14%;" class="num">Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="top-row">
+          <td class="num">C1</td>
+          <td>
+            <div class="ch-name">🔄 Agente conversacional de rescate post-devolución</div>
+            <div class="ch-desc">Al detectar una devolución, el agente inicia secuencia personalizada en 72h: detecta motivo real, propone alternativa concreta del catálogo, tramita el intercambio. Objetivo: rescatar al 40% de los 8.385 clientes que hoy no vuelven.</div>
+          </td>
+          <td><span class="dim-pill dim-rev">Mejora Ingresos</span></td>
+          <td><span class="kr-tag">KR2</span><span class="kr-tag">KR3</span></td>
+          <td class="num">8</td>
+          <td class="num">8</td>
+          <td class="num">7</td>
+          <td class="num"><div class="score-cell">448</div><div class="star-cell">★ TOP 2</div></td>
+        </tr>
+        <tr>
+          <td class="num">C2</td>
+          <td>
+            <div class="ch-name">📱 App: notificaciones push predictivas por temporada/crecimiento de talla</div>
+            <div class="ch-desc">Modelo que predice ventana óptima de recompra por cliente (edad del niño + estacionalidad + compra previa). La App hoy convierte al 6,9% — máximo del portfolio — con solo 0,4% del tráfico.</div>
+          </td>
+          <td><span class="dim-pill dim-rev">Mejora Ingresos</span></td>
+          <td><span class="kr-tag">KR3</span><span class="kr-tag">KR1</span></td>
+          <td class="num">7</td>
+          <td class="num">7</td>
+          <td class="num">5</td>
+          <td class="num"><div class="score-cell">245</div></td>
+        </tr>
+        <tr>
+          <td class="num">C3</td>
+          <td>
+            <div class="ch-name">💬 Agente conversacional de atención D2C 24/7 multilingüe</div>
+            <div class="ch-desc">Chat y email asistido que resuelve autónomamente ~70% de las consultas pre-venta (tallas, disponibilidad, envío) y post-venta (tracking, devolución). Escalado a agente humano solo cuando requiere criterio.</div>
+          </td>
+          <td><span class="dim-pill dim-cost">Reducción Costes</span></td>
+          <td><span class="kr-tag">KR7</span><span class="kr-tag">KR3</span></td>
+          <td class="num">6</td>
+          <td class="num">8</td>
+          <td class="num">6</td>
+          <td class="num"><div class="score-cell">288</div></td>
+        </tr>
+        <tr>
+          <td class="num">C4</td>
+          <td>
+            <div class="ch-name">⚠️ Detección anticipada de churn D2C + secuencias de reactivación</div>
+            <div class="ch-desc">Score de riesgo de abandono por cliente, con activación automática de secuencia de reactivación personalizada antes de perder la cohorte. Retener 5pp de retención = +€85k LTV (Unit Economics GL04).</div>
+          </td>
+          <td><span class="dim-pill dim-rev">Mejora Ingresos</span></td>
+          <td><span class="kr-tag">KR3</span><span class="kr-tag">KR1</span></td>
+          <td class="num">6</td>
+          <td class="num">6</td>
+          <td class="num">5</td>
+          <td class="num"><div class="score-cell">180</div></td>
+        </tr>
+        <tr>
+          <td class="num">C5</td>
+          <td>
+            <div class="ch-name">👟 Loyalty "Pablosky Kids Club" personalizado por edad del niño</div>
+            <div class="ch-desc">Programa de fidelización con beneficios dinámicos por edad (recompensas al cambiar talla, aniversario del niño, temporadas). Agente que gestiona campañas individualizadas.</div>
+          </td>
+          <td><span class="dim-pill dim-rev">Mejora Ingresos</span></td>
+          <td><span class="kr-tag">KR3</span><span class="kr-tag">KR1</span></td>
+          <td class="num">6</td>
+          <td class="num">5</td>
+          <td class="num">4</td>
+          <td class="num"><div class="score-cell">120</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- S03 — MATRIZ GLOBAL -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section id="s03">
+  <div class="eyebrow">S03 — Matriz Global</div>
+  <div class="sec-title">Top 3 · Los que van a Deep Dive</div>
+  <div class="sec-desc">De los 20 challenges evaluados, estos son los tres con mayor score global. Representan las tres palancas con mejor balance de impacto económico, facilidad de ejecución y confianza del análisis. Cada uno se desarrolla en una sección posterior con Problema, Solución, ROI, Proceso, KPIs y Validación de 8 semanas.</div>
+
+  <div class="global-wrap">
+    <div class="global-title">Business Cases prioritarios</div>
+    <div class="global-sub">Ordenados por Score (I × E × C). Activación simultánea de los tres entrega ~€1,1M de EBITDA incremental año 1 (escenario conservador) con un payback medio de 2-4 meses.</div>
+
+    <table class="mtbl">
+      <thead>
+        <tr>
+          <th style="width:5%;" class="num">#</th>
+          <th style="width:10%;">Área</th>
+          <th style="width:28%;">Challenge</th>
+          <th style="width:13%;">Dimensión</th>
+          <th style="width:14%;">KR(s) activados</th>
+          <th style="width:6%;" class="num">I</th>
+          <th style="width:6%;" class="num">E</th>
+          <th style="width:6%;" class="num">C</th>
+          <th style="width:12%;" class="num">Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="top-row">
+          <td class="num">1</td>
+          <td><span class="dim-pill dim-new">Marketing</span></td>
+          <td>
+            <div class="ch-name">🏷️ Recomendador de talla personalizado con IA</div>
+            <div class="ch-desc">Ataca el mayor driver de no-recompra del canal D2C: el 86,5% de devoluciones por sizing.</div>
+          </td>
+          <td><span class="dim-pill dim-prod">Productividad</span></td>
+          <td><span class="kr-tag">KR2</span><span class="kr-tag">KR3</span><span class="kr-tag">KR4</span></td>
+          <td class="num">9</td>
+          <td class="num">8</td>
+          <td class="num">7</td>
+          <td class="num"><div class="score-cell">504</div></td>
+        </tr>
+        <tr class="top-row">
+          <td class="num">2</td>
+          <td><span class="dim-pill dim-rev">Customer Success</span></td>
+          <td>
+            <div class="ch-name">🔄 Agente conversacional de rescate post-devolución</div>
+            <div class="ch-desc">Recupera al 40% de los 8.385 clientes/año que hoy se pierden tras una devolución sin seguimiento.</div>
+          </td>
+          <td><span class="dim-pill dim-rev">Mejora Ingresos</span></td>
+          <td><span class="kr-tag">KR2</span><span class="kr-tag">KR3</span></td>
+          <td class="num">8</td>
+          <td class="num">8</td>
+          <td class="num">7</td>
+          <td class="num"><div class="score-cell">448</div></td>
+        </tr>
+        <tr class="top-row">
+          <td class="num">3</td>
+          <td><span class="dim-pill" style="background:rgba(121,152,174,0.12);color:var(--blue);">Sales</span></td>
+          <td>
+            <div class="ch-name">💼 Agente IA de rentabilidad y renegociación B2B Top 5</div>
+            <div class="ch-desc">Libera margen del 90% del revenue que hoy opera a 0,9x–2,5x escandallo. Munición cuantitativa para el director comercial.</div>
+          </td>
+          <td><span class="dim-pill dim-rev">Mejora Ingresos</span></td>
+          <td><span class="kr-tag">KR4</span><span class="kr-tag">KR6</span></td>
+          <td class="num">9</td>
+          <td class="num">7</td>
+          <td class="num">7</td>
+          <td class="num"><div class="score-cell">441</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="summary-grid">
+    <div class="summary-card">
+      <div class="summary-rank">1</div>
+      <div class="summary-area">Marketing · Score 504</div>
+      <div class="summary-title">Recomendador de talla personalizado con IA</div>
+      <div class="summary-score-row">
+        <div><strong>+€344k</strong><br>LTV recuperado año 1</div>
+        <div><strong>2–3 m</strong><br>Payback</div>
+      </div>
+    </div>
+    <div class="summary-card green">
+      <div class="summary-rank">2</div>
+      <div class="summary-area">Customer Success · Score 448</div>
+      <div class="summary-title">Agente conversacional de rescate post-devolución</div>
+      <div class="summary-score-row">
+        <div><strong>+€266k</strong><br>Revenue recuperado año 1</div>
+        <div><strong>2–3 m</strong><br>Payback</div>
+      </div>
+    </div>
+    <div class="summary-card blue">
+      <div class="summary-rank">3</div>
+      <div class="summary-area">Sales · Score 441</div>
+      <div class="summary-title">Agente IA de rentabilidad y renegociación B2B Top 5</div>
+      <div class="summary-score-row">
+        <div><strong>+€486k</strong><br>EBITDA año 1 (+2pp mix)</div>
+        <div><strong>2–4 m</strong><br>Payback</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- S04 — DEEP DIVE 1 -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section id="s04" style="background:var(--bg);">
+  <div class="eyebrow">S04 — Deep Dive 1 · Marketing</div>
+  <div class="sec-title">Business Case · Recomendador de talla con IA</div>
+  <div class="sec-desc">El challenge con mayor score global (504). Ataca directamente el driver nº1 de destrucción de LTV del canal D2C: el sizing. Alta confianza porque Pablosky ya tiene el dataset histórico de devoluciones (17.155 casos Sep24–Ago25) y el sistema "Dos Tallas" parcialmente implementado — solo falta agéntica capa de decisión y orquestación universal.</div>
+
+  <div class="dd-block">
+    <div class="dd-header">
+      <div class="dd-num">DEEP DIVE #1 · MARKETING · SCORE 504</div>
+      <div class="dd-title">🏷️ Recomendador de talla personalizado con IA</div>
+      <div class="dd-area">I=9 · E=8 · C=7 · Dimensión IA: Productividad</div>
+      <div class="dd-area-score">
+        <span>KR2 · No-recompra 48,8%→25%</span>
+        <span>KR3 · LTV:CAC 2,7x→4x</span>
+        <span>KR4 · Shift mix D2C +3pp</span>
+      </div>
+    </div>
+    <div class="dd-body">
+
+      <div class="dd-section-title">Problema</div>
+      <div class="dd-text">
+        Pablosky registra <strong>17.155 casos de devolución/año</strong> en el canal online (Sep24–Ago25), de los cuales <strong>el 86,5% corresponden a problemas de talla</strong> ("me queda grande" 44,7% + "me queda pequeño" 41,8%). El sistema "Dos Tallas" ya disponible en parte del catálogo reduce el no-recompra del 48,8% al 12,6% — pero no está activado en el flujo digital completo ni integrado con el perfil del cliente. Cada cliente perdido post-devolución tiene un LTV proyectado de €64 (12m) / €175 (24m); multiplicado por los <strong>8.385 clientes no recuperados al año</strong> supone <strong>más de €535k en LTV destruido anualmente</strong>. La fricción del proceso de cambio consume ~1.200h/año del equipo de atención cliente. Benchmark sector calzado infantil premium EU: las marcas con fit-predictor basado en IA reducen sizing returns en un 25–35% en los primeros 6 meses.
+      </div>
+
+      <div class="dd-section-title">Solución</div>
+      <div class="dd-text">
+        <strong>Agente de recomendación de talla</strong> que combina tres fuentes de contexto: (1) historial de compras y devoluciones previas del cliente en CRM, (2) dataset interno de morfometría Pablosky por modelo/horma/material, (3) inputs declarativos del cliente (edad, rango de crecimiento esperado, pie ancho/estrecho). Se integra como layer conversacional en <strong>PDP, checkout y email post-devolución</strong>, y activa automáticamente el "Dos Tallas" cuando la confianza en la predicción es media. El equipo de atención cliente solo interviene cuando el agente detecta un caso fuera de patrón (pie atípico, modelo nuevo sin histórico). Para el cliente, la experiencia es la de un asesor personal que conoce a su hijo y aprende con cada interacción.
+      </div>
+
+      <div class="dd-roi-box">
+        <div class="dd-roi-tag">ROI · ESCENARIO CONSERVADOR AÑO 1</div>
+        <div class="dd-roi-text">
+          <strong>Reducción devoluciones -30%:</strong> 17.155 × 30% = 5.147 casos evitados × €12 coste logístico = <strong>€62k/año</strong><br>
+          <strong>Recuperación LTV:</strong> 8.385 × 50% recovery × €64 LTV 12m = <strong>€268k/año</strong><br>
+          <strong>Ahorro FTEs atención cliente:</strong> 0,4 FTE × €35k = <strong>€14k/año</strong><br>
+          <strong>Total impacto año 1:</strong> ~€344k · <strong>Coste implementación:</strong> €45–60k · <strong>Payback:</strong> ~2-3 meses · <strong>ROI año 1:</strong> ~520%
+        </div>
+      </div>
+
+      <div class="dd-section-title">Proceso · Agent Engine</div>
+      <div class="dd-process">
+        <div class="proc-card">
+          <div class="proc-step">01 · INGESTA &amp; CONTEXTO</div>
+          <div class="proc-title">Lectura de señales</div>
+          <div class="proc-body">El agente lee en tiempo real la ficha del producto (horma, material, ajuste), el histórico del cliente en CRM (compras, devoluciones, edad del hijo, patrón de crecimiento) y el dataset de ajustes Pablosky por modelo. Construye el "fit profile" del pie del niño antes de actuar.</div>
+        </div>
+        <div class="proc-card">
+          <div class="proc-step">02 · AGENTE DE DECISIÓN</div>
+          <div class="proc-title">Predicción + orquestación</div>
+          <div class="proc-body">Analiza morfología + modelo + contexto histórico, predice la talla óptima con score de confianza, decide si proponer talla única, activar Dos Tallas o escalar (caso atípico). Personaliza el mensaje en tono de marca Pablosky.</div>
+        </div>
+        <div class="proc-card">
+          <div class="proc-step">03 · OUTPUT &amp; ACCIÓN</div>
+          <div class="proc-title">Integración omnicanal</div>
+          <div class="proc-body">Inserta la recomendación en PDP, checkout y email post-devolución. Actualiza el perfil del cliente en CRM con el fit profile aprendido. Notifica a atención cliente solo si el caso requiere revisión humana.</div>
+        </div>
+      </div>
+
+      <div class="dd-section-title">KPIs · Baseline → Target</div>
+      <table class="kpi-table">
+        <thead>
+          <tr>
+            <th style="width:42%;">KPI</th>
+            <th style="width:22%;">Baseline</th>
+            <th style="width:22%;">Target 6m</th>
+            <th style="width:14%;">Unidad</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>% devoluciones por motivo de talla</td><td class="baseline">86,5%</td><td class="target">&lt;55%</td><td>% casos</td></tr>
+          <tr><td>No-recompra post-devolución</td><td class="baseline">48,8%</td><td class="target">&lt;25%</td><td>%</td></tr>
+          <tr><td>Conversión PDP (con recomendador activo)</td><td class="baseline">3,4%</td><td class="target">4,2%</td><td>%</td></tr>
+          <tr><td>AOV clientes con recomendador</td><td class="baseline">€60</td><td class="target">€68</td><td>€</td></tr>
+        </tbody>
+      </table>
+
+      <div class="validacion-box">
+        <strong>Validación 8 semanas:</strong><br>
+        <strong>Sem 1-2:</strong> Mapeo del catálogo con fit profile y entrenamiento inicial del agente sobre dataset histórico de devoluciones.<br>
+        <strong>Sem 3-4:</strong> Piloto en Top 20 modelos (40% revenue online) con control A/B.<br>
+        <strong>Sem 5-6:</strong> Rollout a catálogo completo + integración en flujo post-devolución.<br>
+        <strong>Sem 7-8:</strong> Análisis de resultados, re-entrenamiento del modelo con feedback de dos semanas de producción y ajuste de umbrales de confianza.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- S05 — DEEP DIVE 2 -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section id="s05">
+  <div class="eyebrow">S05 — Deep Dive 2 · Customer Success</div>
+  <div class="sec-title">Business Case · Agente de rescate post-devolución</div>
+  <div class="sec-desc">El segundo mayor score (448). Ataca el mismo dolor que M1 desde otro ángulo: la fase post-devolución. M1 previene, C1 rescata cuando M1 no llega. Juntos activan KR2 (no-recompra) desde los dos extremos del embudo. Alta confianza por la disponibilidad del dataset y la claridad de la acción.</div>
+
+  <div class="dd-block green">
+    <div class="dd-header green">
+      <div class="dd-num">DEEP DIVE #2 · CUSTOMER SUCCESS · SCORE 448</div>
+      <div class="dd-title">🔄 Agente conversacional de rescate post-devolución</div>
+      <div class="dd-area">I=8 · E=8 · C=7 · Dimensión IA: Mejora Ingresos</div>
+      <div class="dd-area-score">
+        <span>KR2 · No-recompra 48,8%→25%</span>
+        <span>KR3 · LTV:CAC 2,7x→4x</span>
+      </div>
+    </div>
+    <div class="dd-body">
+
+      <div class="dd-section-title">Problema</div>
+      <div class="dd-text">
+        Las devoluciones del canal online destruyen silenciosamente la relación con el cliente: <strong>el 48,8% de quienes devuelven no vuelven a comprar</strong>, según los datos Sep24–Ago25 (8.385 clientes perdidos/año). El proceso actual termina cuando el cliente recibe el reembolso — no hay seguimiento proactivo para recuperar la confianza. En el sector retail infantil europeo, el 62% del churn post-incidencia se previene con un contacto personalizado en las 72h posteriores. Cada cliente perdido representa <strong>€64 (LTV 12m) / €175 (LTV 24m)</strong> de ingresos no capturados, y la cohorte de "devolutores primerizos" es especialmente valiosa porque indica intención alta de compra: ya han introducido la marca en su consideración.
+      </div>
+
+      <div class="dd-section-title">Solución</div>
+      <div class="dd-text">
+        <strong>Agente conversacional post-devolución</strong> que, al detectar una devolución completada, inicia una secuencia personalizada: identifica el motivo real (talla, modelo, ocasión), propone alternativas concretas del catálogo (misma talla en otra horma, talla vecina con Dos Tallas, producto complementario en descuento), gestiona conversacionalmente la objeción y, si es necesario, tramita directamente el intercambio. El canal (email, WhatsApp, push App) se elige en función del comportamiento previo del cliente. El equipo humano solo entra cuando el cliente pide hablar con alguien o cuando el agente detecta una insatisfacción estructural (defecto de producto). Para el cliente, la experiencia es como tener a un dependiente experto de confianza.
+      </div>
+
+      <div class="dd-roi-box">
+        <div class="dd-roi-tag">ROI · ESCENARIO CONSERVADOR AÑO 1</div>
+        <div class="dd-roi-text">
+          <strong>Recuperación clientes perdidos:</strong> 8.385 × 40% recovery × €64 LTV 12m = <strong>€215k/año</strong><br>
+          <strong>Cross-sell en rescate:</strong> 30% recovery × AOV €60 × 20% cross = <strong>€30k/año</strong><br>
+          <strong>Ahorro FTEs atención cliente:</strong> 0,6 FTE × €35k = <strong>€21k/año</strong><br>
+          <strong>Total impacto año 1:</strong> ~€266k · <strong>Coste implementación:</strong> €35–50k · <strong>Payback:</strong> ~2-3 meses · <strong>ROI año 1:</strong> ~530%
+        </div>
+      </div>
+
+      <div class="dd-section-title">Proceso · Agent Engine</div>
+      <div class="dd-process">
+        <div class="proc-card">
+          <div class="proc-step">01 · INGESTA &amp; CONTEXTO</div>
+          <div class="proc-title">Trigger + perfil cliente</div>
+          <div class="proc-body">Al detectar una devolución en el sistema, el agente lee el motivo declarado, el historial del cliente (compras previas, edad del hijo, canal de origen), el perfil de navegación previo (modelos vistos antes/después) y el stock de alternativas.</div>
+        </div>
+        <div class="proc-card">
+          <div class="proc-step">02 · AGENTE DE DECISIÓN</div>
+          <div class="proc-title">Tipología + canal + incentivo</div>
+          <div class="proc-body">Analiza si es un caso de "rescate rápido" (cambio de talla con stock), "rescate estratégico" (cliente valioso) o "información" (defecto a escalar). Selecciona canal (email, WhatsApp, App push), redacta el mensaje y define incentivo si aplica.</div>
+        </div>
+        <div class="proc-card">
+          <div class="proc-step">03 · OUTPUT &amp; ACCIÓN</div>
+          <div class="proc-title">Ejecución + tracking</div>
+          <div class="proc-body">Envía el mensaje, tracka la respuesta, adapta la conversación en tiempo real. Actualiza CRM con motivo estructural y patrón. Escala a humano solo si el cliente lo pide o el caso es complejo.</div>
+        </div>
+      </div>
+
+      <div class="dd-section-title">KPIs · Baseline → Target</div>
+      <table class="kpi-table">
+        <thead>
+          <tr>
+            <th style="width:42%;">KPI</th>
+            <th style="width:22%;">Baseline</th>
+            <th style="width:22%;">Target 6m</th>
+            <th style="width:14%;">Unidad</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Tasa de recompra post-devolución</td><td class="baseline">51,2%</td><td class="target">75%</td><td>%</td></tr>
+          <tr><td>Tiempo medio de recuperación (devolución → nueva compra)</td><td class="baseline">N/A</td><td class="target">&lt;14</td><td>días</td></tr>
+          <tr><td>Conversión de email/WhatsApp post-devolución</td><td class="baseline">baja</td><td class="target">22%</td><td>%</td></tr>
+          <tr><td>Cross-sell en rescate (productos adicionales)</td><td class="baseline">N/A</td><td class="target">20%</td><td>%</td></tr>
+        </tbody>
+      </table>
+
+      <div class="validacion-box">
+        <strong>Validación 8 semanas:</strong><br>
+        <strong>Sem 1-2:</strong> Segmentación de casos de devolución + diseño de playbook conversacional por motivo.<br>
+        <strong>Sem 3-4:</strong> Piloto con el 30% de devoluciones (Madrid + Barcelona, volumen representativo).<br>
+        <strong>Sem 5-6:</strong> Rollout nacional + integración con WhatsApp y App push.<br>
+        <strong>Sem 7-8:</strong> Análisis por cohorte, optimización del timing/canal óptimo y entrega del informe de impacto neto sobre LTV.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- S06 — DEEP DIVE 3 -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section id="s06" style="background:var(--bg);">
+  <div class="eyebrow">S06 — Deep Dive 3 · Sales</div>
+  <div class="sec-title">Business Case · Agente IA de rentabilidad B2B Top 5</div>
+  <div class="sec-desc">El tercer mayor score (441). El único Deep Dive que ataca directamente el 90% del revenue: el B2B. Cada +1pp de mix hacia canal más rentable = €213k EBITDA. Confianza 7 porque el dato existe (ERP + CRM B2B), solo falta el agente que lo lea y lo traduzca en munición para el director comercial.</div>
+
+  <div class="dd-block blue">
+    <div class="dd-header blue">
+      <div class="dd-num">DEEP DIVE #3 · SALES · SCORE 441</div>
+      <div class="dd-title">💼 Agente IA de rentabilidad y renegociación B2B Top 5</div>
+      <div class="dd-area">I=9 · E=7 · C=7 · Dimensión IA: Mejora Ingresos</div>
+      <div class="dd-area-score">
+        <span>KR4 · Shift mix D2C +3pp/año</span>
+        <span>KR6 · EBITDA 13%→15%</span>
+      </div>
+    </div>
+    <div class="dd-body">
+
+      <div class="dd-section-title">Problema</div>
+      <div class="dd-text">
+        El <strong>90% del revenue de Pablosky pasa por B2B</strong>, pero el margen real por cuenta es un punto ciego operativo: <strong>ECI Firme (20% del volumen) opera a 0,9x escandallo</strong> — virtualmente breakeven tras descuentos, comisiones de agente y contribución publicitaria. Merkal, Amazon Vendor, RNA y Fawatem operan entre 0,9x y 2,5x, con procesos de renegociación anual basados en criterios no-cuantitativos (relación personal, historial, instinto comercial). Cada <strong>+1pp de mix desde ECI hacia un canal más rentable = €213k EBITDA adicional</strong> (FX03 Unit Economics). Con revenue proyectado -14% a 2028E y estructura de costes rígida, no rescatar rentabilidad del B2B significa depender exclusivamente del D2C para salvar el EBITDA — un salto demasiado rápido para el mix actual.
+      </div>
+
+      <div class="dd-section-title">Solución</div>
+      <div class="dd-text">
+        <strong>Agente analista de rentabilidad por cuenta B2B</strong> que procesa continuamente datos de pedidos, albaranes, devoluciones, descuentos aplicados, comisiones reales y tiempo de cobro por cliente. Cada trimestre, prepara un <strong>"rentability dossier"</strong> individual por cuenta Top 5 con: margen neto real, benchmarks vs otras cuentas, simulaciones de mejora ("si aumentamos un 2% el precio unitario en la categoría niño 4-6 años, impacto en EBITDA"), y una propuesta de negociación priorizada. El director comercial sigue liderando la relación humana — el agente le entrega <strong>la munición cuantitativa que antes costaba 2-3 semanas de analista senior por cliente</strong>. Para el partner B2B, la conversación pasa de ser "descuento general" a "ajuste por categoría con argumentos".
+      </div>
+
+      <div class="dd-roi-box">
+        <div class="dd-roi-tag">ROI · ESCENARIO CONSERVADOR AÑO 1</div>
+        <div class="dd-roi-text">
+          <strong>Shift mix +2pp anual (conservador):</strong> 2 × €213k = <strong>€426k EBITDA/año</strong><br>
+          <strong>Shift mix +3pp anual (optimista):</strong> 3 × €213k = €640k EBITDA/año<br>
+          <strong>Ahorro analista senior:</strong> 1 FTE × €60k = <strong>€60k/año</strong><br>
+          <strong>Total impacto año 1 (conservador):</strong> ~€486k · <strong>Coste implementación:</strong> €60–80k · <strong>Payback:</strong> ~2-4 meses · <strong>ROI año 1:</strong> ~610%
+        </div>
+      </div>
+
+      <div class="dd-section-title">Proceso · Agent Engine</div>
+      <div class="dd-process">
+        <div class="proc-card">
+          <div class="proc-step">01 · INGESTA &amp; CONTEXTO</div>
+          <div class="proc-title">P&amp;L unitaria por cuenta</div>
+          <div class="proc-body">El agente lee en tiempo real los datos del ERP (pedidos, albaranes, facturación), CRM B2B (descuentos aplicados, rebates, condiciones), comisiones de agentes y devoluciones. Construye la P&amp;L real por cuenta, categoría y temporada.</div>
+        </div>
+        <div class="proc-card">
+          <div class="proc-step">02 · AGENTE DE DECISIÓN</div>
+          <div class="proc-title">Detección + simulación</div>
+          <div class="proc-body">Analiza desviaciones vs benchmark interno, detecta patrones de pérdida oculta (descuentos de fin de campaña no presupuestados), simula escenarios de renegociación con elasticidad esperada, y prioriza palancas por facilidad de conversación con el partner.</div>
+        </div>
+        <div class="proc-card">
+          <div class="proc-step">03 · OUTPUT &amp; ACCIÓN</div>
+          <div class="proc-title">Dossier + alertas</div>
+          <div class="proc-body">Entrega el dossier trimestral al director comercial y al CEO. Genera alertas automáticas cuando una cuenta cae por debajo del umbral objetivo. Documenta en CRM el cambio de condiciones negociado para retroalimentar el modelo.</div>
+        </div>
+      </div>
+
+      <div class="dd-section-title">KPIs · Baseline → Target</div>
+      <table class="kpi-table">
+        <thead>
+          <tr>
+            <th style="width:42%;">KPI</th>
+            <th style="width:22%;">Baseline</th>
+            <th style="width:22%;">Target 12m</th>
+            <th style="width:14%;">Unidad</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Cuentas Top 5 con rentabilidad neta &lt;1,2x</td><td class="baseline">2 / 5</td><td class="target">0 / 5</td><td>cuentas</td></tr>
+          <tr><td>EBITDA B2B Top 5 (delta vs año anterior)</td><td class="baseline">€0</td><td class="target">+€426k</td><td>€/año</td></tr>
+          <tr><td>Tiempo preparación dossier renegociación por cuenta</td><td class="baseline">2-3 sem</td><td class="target">3</td><td>días</td></tr>
+          <tr><td>Mix D2C sobre revenue total</td><td class="baseline">23%</td><td class="target">26%</td><td>%</td></tr>
+        </tbody>
+      </table>
+
+      <div class="validacion-box">
+        <strong>Validación 8 semanas:</strong><br>
+        <strong>Sem 1-2:</strong> Integración ERP + CRM B2B, construcción del data model de rentabilidad unitaria.<br>
+        <strong>Sem 3-4:</strong> Dossier piloto de ECI Firme + validación con el director comercial.<br>
+        <strong>Sem 5-6:</strong> Extensión a Merkal, Amazon Vendor, RNA y Fawatem.<br>
+        <strong>Sem 7-8:</strong> Primera ronda de renegociación con el dossier como input + medición del impacto proyectado sobre EBITDA Q+1.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- FOOTER -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logos">
+      <div class="f-logo-s">SUN<span>TZU</span></div>
+      <div class="f-logo-div"></div>
+      <div class="f-logo-p">PABLOSKY</div>
+    </div>
+    <div class="footer-meta">
+      Aceleración Estratégica &nbsp;·&nbsp; Abril 2026<br>
+      20 challenges priorizados · 3 Deep Dives · 7 KRs cubiertos<br>
+      Vertical: Fabricante calzado infantil premium · Modelo híbrido B2B/D2C<br>
+      Preparado por Suntzu Growth Advisory
+    </div>
+  </div>
+  <div class="footer-disclaimer">
+    Este documento contiene información confidencial y propietaria de Pablosky y Suntzu. La priorización I×E×C se basa en los hallazgos del Unit Economics Report Sep24–Ago25, el Plan SKY y benchmarks sectoriales de calzado infantil premium EU. Los escenarios de ROI son estimaciones basadas en datos operacionales disponibles; para cálculos definitivos se requiere acceso a CRM D2C segmentado y P&amp;L por cuenta B2B detallada. © Suntzu 2026.
+  </div>
+</footer>
+
+</body></html>
